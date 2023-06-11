@@ -46,6 +46,7 @@ namespace Core.Entities
         [Required]
         public string? RecordStatus { get; set; }
 
+
         public override string ToString()
         {
             return $"Id: {TimeTrackingId}, CustomerId: {CustomerId},EmployeeId: {EmployeeId}, ProjectNameID: {ProjectNameId}, ProjectOwnerId: {ProjectOwnerId}, " +

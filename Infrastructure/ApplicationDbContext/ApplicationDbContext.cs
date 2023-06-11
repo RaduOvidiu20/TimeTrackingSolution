@@ -8,6 +8,7 @@ namespace Infrastructure.AplicationDbContext
         {
         }
 
+
         public virtual DbSet<Customer>? Customers { get; set; }
         public virtual DbSet<Employee>? Employees { get; set; }
         public virtual DbSet<ProjectName>? ProjectNames { get; set; }
@@ -24,6 +25,8 @@ namespace Infrastructure.AplicationDbContext
             modelBuilder.Entity<ProjectOwner>().ToTable(nameof(ProjectOwner));
             modelBuilder.Entity<TaskType>().ToTable(nameof(TaskType));
             modelBuilder.Entity<TimeTracking>().ToTable(nameof(TimeTracking));
+
+
         }
     }
 }
