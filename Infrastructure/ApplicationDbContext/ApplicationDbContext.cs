@@ -13,7 +13,7 @@ namespace Infrastructure.AplicationDbContext
         public virtual DbSet<ProjectName>? ProjectNames { get; set; }
         public virtual DbSet<ProjectOwner>? ProjectOwners { get; set; }
         public virtual DbSet<TaskType>? TaskTypes { get; set; }
-        public virtual DbSet<TimeTracking>? TimeTracking { get; set; }
+        public virtual DbSet<TimeTracking>? TimeTrackings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
