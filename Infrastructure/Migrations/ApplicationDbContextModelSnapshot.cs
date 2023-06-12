@@ -113,19 +113,19 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid>("Customers")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmployeeId")
+                    b.Property<Guid>("Employees")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProjectNameId")
+                    b.Property<Guid>("ProjectNames")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProjectOwnerId")
+                    b.Property<Guid>("ProjectOwners")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RecordStatus")
@@ -136,7 +136,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("TaskTypeId")
+                    b.Property<Guid>("TaskTypes")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WorkedHours")
@@ -145,7 +145,60 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("TimeTrackingId");
 
+                    b.HasIndex("Customers");
+
+                    b.HasIndex("Employees");
+
+                    b.HasIndex("ProjectNames");
+
+                    b.HasIndex("ProjectOwners");
+
+                    b.HasIndex("TaskTypes");
+
                     b.ToTable("TimeTracking", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.TimeTracking", b =>
+                {
+                    b.HasOne("Core.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("Customers")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("Employees")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.ProjectName", "ProjectName")
+                        .WithMany()
+                        .HasForeignKey("ProjectNames")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.ProjectOwner", "ProjectOwner")
+                        .WithMany()
+                        .HasForeignKey("ProjectOwners")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.TaskType", "TaskType")
+                        .WithMany()
+                        .HasForeignKey("TaskTypes")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("ProjectName");
+
+                    b.Navigation("ProjectOwner");
+
+                    b.Navigation("TaskType");
                 });
 #pragma warning restore 612, 618
         }

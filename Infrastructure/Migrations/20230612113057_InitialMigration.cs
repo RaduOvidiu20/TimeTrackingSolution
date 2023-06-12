@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -80,11 +80,11 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     TimeTrackingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProjectNameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProjectOwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TaskTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Customers = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Employees = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProjectNames = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProjectOwners = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TaskTypes = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WorkedHours = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -94,17 +94,70 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TimeTracking", x => x.TimeTrackingId);
-                    table.ForeignKey("FK_Customer", x => x.CustomerId, nameof(Customer));
-                    table.ForeignKey("FK_Employee", x => x.EmployeeId, nameof(Employee));
-                    table.ForeignKey("FK_ProjectName", x => x.ProjectNameId, nameof(ProjectName));
-                    table.ForeignKey("FK_ProjectOwner", x => x.ProjectOwnerId, nameof(ProjectOwner));
-                    table.ForeignKey("FK_TaskType", x => x.TaskTypeId, nameof(TaskType));
+                    table.ForeignKey(
+                        name: "FK_TimeTracking_Customer_Customers",
+                        column: x => x.Customers,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeTracking_Employee_Employees",
+                        column: x => x.Employees,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeTracking_ProjectName_ProjectNames",
+                        column: x => x.ProjectNames,
+                        principalTable: "ProjectName",
+                        principalColumn: "ProjectNameId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeTracking_ProjectOwner_ProjectOwners",
+                        column: x => x.ProjectOwners,
+                        principalTable: "ProjectOwner",
+                        principalColumn: "ProjectOwnerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeTracking_TaskType_TaskTypes",
+                        column: x => x.TaskTypes,
+                        principalTable: "TaskType",
+                        principalColumn: "TaskTypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracking_Customers",
+                table: "TimeTracking",
+                column: "Customers");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracking_Employees",
+                table: "TimeTracking",
+                column: "Employees");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracking_ProjectNames",
+                table: "TimeTracking",
+                column: "ProjectNames");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracking_ProjectOwners",
+                table: "TimeTracking",
+                column: "ProjectOwners");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracking_TaskTypes",
+                table: "TimeTracking",
+                column: "TaskTypes");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TimeTracking");
+
             migrationBuilder.DropTable(
                 name: "Customer");
 
@@ -119,9 +172,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TaskType");
-
-            migrationBuilder.DropTable(
-                name: "TimeTracking");
         }
     }
 }

@@ -10,27 +10,27 @@ namespace Core.Entities
 
 
         [Required]
-        [ForeignKey(nameof(CustomerId))]
-        public virtual Guid CustomerId { get; set; }
+        [ForeignKey("Customers")]
+        public virtual Customer? Customer { get; set; }
 
 
         [Required]
-        [ForeignKey(nameof(EmployeeId))]
-        public virtual Guid EmployeeId { get; set; }
+        [ForeignKey("Employees")]
+        public virtual Employee? Employee { get; set; }
 
 
         [Required]
-        [ForeignKey(nameof(ProjectNameId))]
-        public virtual Guid ProjectNameId { get; set; }
+        [ForeignKey("ProjectNames")]
+        public virtual ProjectName? ProjectName { get; set; }
 
 
         [Required]
-        [ForeignKey(nameof(ProjectOwnerId))]
-        public virtual Guid ProjectOwnerId { get; set; }
+        [ForeignKey("ProjectOwners")]
+        public virtual ProjectOwner? ProjectOwner { get; set; }
 
         [Required]
-        [ForeignKey(nameof(TaskTypeId))]
-        public virtual Guid TaskTypeId { get; set; }
+        [ForeignKey("TaskTypes")]
+        public virtual TaskType? TaskType { get; set; }
 
         [Required]
         public int? WorkedHours { get; set; }
@@ -49,8 +49,8 @@ namespace Core.Entities
 
         public override string ToString()
         {
-            return $"Id: {TimeTrackingId}, CustomerId: {CustomerId},EmployeeId: {EmployeeId}, ProjectNameID: {ProjectNameId}, ProjectOwnerId: {ProjectOwnerId}, " +
-                $"TaskTypeId: {TaskTypeId}, WorkedHours: {WorkedHours}, StartDate: {StartDate}, EndDate: {EndDate}, Comment: {Comment}, RecordStatus: {RecordStatus}";
+            return $"Id: {TimeTrackingId}, CustomerId: {Customer},EmployeeId: {Employee}, ProjectNameID: {ProjectName}, ProjectOwnerId: {ProjectOwner}, " +
+                $"TaskTypeId: {TaskType}, WorkedHours: {WorkedHours}, StartDate: {StartDate}, EndDate: {EndDate}, Comment: {Comment}, RecordStatus: {RecordStatus}";
         }
     }
 }

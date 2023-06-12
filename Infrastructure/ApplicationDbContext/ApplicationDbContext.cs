@@ -27,6 +27,7 @@ namespace Infrastructure.AplicationDbContext
             modelBuilder.Entity<TimeTracking>().ToTable(nameof(TimeTracking));
 
 
+
         }
     }
 }

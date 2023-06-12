@@ -42,11 +42,11 @@ namespace Infrastructure.Repositories
         {
             TimeTracking matchingTimeTracking = await _db.TimeTrackings.FirstOrDefaultAsync(t => t.TimeTrackingId == timeTracking.TimeTrackingId);
             if (matchingTimeTracking != null) { return timeTracking; }
-            matchingTimeTracking.CustomerId = timeTracking.CustomerId;
-            matchingTimeTracking.EmployeeId = timeTracking.EmployeeId;
-            matchingTimeTracking.ProjectNameId = timeTracking.ProjectNameId;
-            matchingTimeTracking.ProjectOwnerId = timeTracking.ProjectOwnerId;
-            matchingTimeTracking.TaskTypeId = timeTracking.TaskTypeId;
+            matchingTimeTracking.Customer = timeTracking.Customer;
+            matchingTimeTracking.Employee = timeTracking.Employee;
+            matchingTimeTracking.ProjectName = timeTracking.ProjectName;
+            matchingTimeTracking.ProjectOwner = timeTracking.ProjectOwner;
+            matchingTimeTracking.TaskType = timeTracking.TaskType;
             matchingTimeTracking.WorkedHours = timeTracking.WorkedHours;
             matchingTimeTracking.StartDate = timeTracking.StartDate;
             matchingTimeTracking.EndDate = timeTracking.EndDate;
