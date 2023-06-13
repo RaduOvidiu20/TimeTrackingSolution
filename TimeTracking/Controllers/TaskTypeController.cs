@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.Contracts;
+using Core.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,9 +9,9 @@ namespace TimeTracking.Web.Controllers;
 [Route("[controller]")]
 public class TaskTypeController : Controller
 {
-    private readonly TaskTypeRepository _taskTypeRepository;
+    private readonly ITaskType _taskTypeRepository;
 
-    public TaskTypeController(TaskTypeRepository taskTypeRepository)
+    public TaskTypeController(ITaskType taskTypeRepository)
     {
         _taskTypeRepository = taskTypeRepository;
     }
@@ -59,7 +60,7 @@ public class TaskTypeController : Controller
     }
 
     [HttpPost]
-    [Route("[action]/[taskTypeId]")]
+    [Route("[action]/{taskType}")]
     public async Task<IActionResult> Edit(TaskType taskType)
     {
         TaskType newTaskType = await _taskTypeRepository.GetTaskTypeById(taskType.TaskTypeId);

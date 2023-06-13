@@ -1,0 +1,13 @@
+﻿@model System.Collections.Generic.List<Core.Entities.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "_Layout";
+}
+
+@foreach (Customer customer in ViewBag.Customers)
+{
+    <h1>@customer.Email</h1>
+    <h1>@customer.Name</h1>
+    <h1>@customer.Phone</h1>
+}

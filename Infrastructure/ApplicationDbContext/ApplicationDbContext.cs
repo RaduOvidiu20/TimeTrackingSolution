@@ -19,12 +19,14 @@ namespace Infrastructure.AplicationDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Customer>().ToTable(nameof(Customer));
-            modelBuilder.Entity<Employee>().ToTable(nameof(Employee));
-            modelBuilder.Entity<ProjectName>().ToTable(nameof(ProjectName));
-            modelBuilder.Entity<ProjectOwner>().ToTable(nameof(ProjectOwner));
-            modelBuilder.Entity<TaskType>().ToTable(nameof(TaskType));
-            modelBuilder.Entity<TimeTracking>().ToTable(nameof(TimeTracking));
+            modelBuilder.Entity<Customer>().ToTable(nameof(Customer)).Property(c=>c.CustomerId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Employee>().ToTable(nameof(Employee)).Property(e=>e.EmployeeId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<ProjectName>().ToTable(nameof(ProjectName)).Property(pn=>pn.ProjectNameId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<ProjectOwner>().ToTable(nameof(ProjectOwner)).Property(po=>po.ProjectOwnerId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<TaskType>().ToTable(nameof(TaskType)).Property(tt=>tt.TaskTypeId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<TimeTracking>().ToTable(nameof(TimeTracking)).Property(t=>t.TimeTrackingId).ValueGeneratedOnAdd();
+            
+            
 
 
 

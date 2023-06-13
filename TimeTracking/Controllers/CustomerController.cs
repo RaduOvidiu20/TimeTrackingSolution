@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.Contracts;
+using Core.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,25 +9,27 @@ namespace TimeTracking.Web.Controllers
     [Route("[controller]")]
     public class CustomerController : Controller
     {
-        private readonly CustomerRepository _customerRepository;
+        private readonly ICustomer _customer;
 
-        public CustomerController(CustomerRepository customerRepository)
+
+        public CustomerController(ICustomer customer)
         {
-            _customerRepository = customerRepository;
+            _customer = customer;
         }
 
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            List<Customer> customers = await _customerRepository.GetAllCustomers();
+            List<Customer> customers = await _customer.GetAllCustomers();
+            ViewBag.Customers = await _customer.GetAllCustomers();
             return View(customers);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            List<Customer> customers = await _customerRepository.GetAllCustomers();
+            List<Customer> customers = await _customer.GetAllCustomers();
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
             return View();
@@ -36,7 +39,7 @@ namespace TimeTracking.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Customer customer)
         {
-            Customer newCustomer = await _customerRepository.AddCustomer(customer);
+            Customer newCustomer = await _customer.AddCustomer(customer);
 
             return RedirectToAction("GetAll", "Customer");
         }
@@ -45,13 +48,13 @@ namespace TimeTracking.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid customerId)
         {
-            Customer? customer = await _customerRepository.GetCustomerById(customerId);
+            Customer? customer = await _customer.GetCustomerById(customerId);
             if (customer == null)
             {
                 RedirectToAction("GetAll");
             }
 
-            List<Customer> customers = await _customerRepository.GetAllCustomers();
+            List<Customer> customers = await _customer.GetAllCustomers();
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
             return View(customer);
@@ -61,13 +64,13 @@ namespace TimeTracking.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Customer customer)
         {
-            Customer? customerModel = await _customerRepository.GetCustomerById(customer.CustomerId);
+            Customer? customerModel = await _customer.GetCustomerById(customer.CustomerId);
             if (customerModel == null)
             {
                 RedirectToAction("GetAll");
             }
 
-            Customer updatedCustomer = await _customerRepository.UpdateCustomer(customer);
+            Customer updatedCustomer = await _customer.UpdateCustomer(customer);
             return RedirectToAction("GetAll");
         }
 
@@ -75,7 +78,7 @@ namespace TimeTracking.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid customerId)
         {
-            Customer? customer = await _customerRepository.GetCustomerById(customerId);
+            Customer? customer = await _customer.GetCustomerById(customerId);
             if (customer == null)
             {
                 RedirectToAction("GetAll");
@@ -88,13 +91,13 @@ namespace TimeTracking.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Customer customer)
         {
-            Customer? customerModel = await _customerRepository.GetCustomerById(customer.CustomerId);
+            Customer? customerModel = await _customer.GetCustomerById(customer.CustomerId);
             if (customerModel == null)
             {
                 RedirectToAction("GetAll");
             }
 
-            await _customerRepository.DeleteCustomer(customer.CustomerId);
+            await _customer.DeleteCustomer(customer.CustomerId);
             return RedirectToAction("GetAll");
         }
     }

@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Customer>> GetAllCustomers()
         {
-            return await _db.Customers.Include(temp => temp.CustomerId).ToListAsync();
+            return await _db.Customers.OrderBy(temp => temp.Name).ToListAsync();
         }
 
         public async Task<Customer> GetCustomerById(Guid customerId)

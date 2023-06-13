@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Infrastructure.Repositories;
+﻿using Core.Contracts;
+using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,9 +8,9 @@ namespace TimeTracking.Web.Controllers;
 [Route("[controller]")]
 public class ProjectNameController : Controller
 {
-    private readonly ProjectNameRepository _projectNameRepository;
+    private readonly IProjectName _projectNameRepository;
 
-    public ProjectNameController(ProjectNameRepository projectNameRepository)
+    public ProjectNameController(IProjectName projectNameRepository)
     {
         _projectNameRepository = projectNameRepository;
     }

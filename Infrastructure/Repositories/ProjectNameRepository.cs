@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<ProjectName>> GetAllProjectNames()
         {
-            return await _db.ProjectNames.Include(t => t.ProjectNameId).ToListAsync();
+            return await _db.ProjectNames.OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task<ProjectName> GetProjectNameById(Guid projectId)

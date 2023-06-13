@@ -1,4 +1,6 @@
 ﻿using Core.Contracts;
+using Core.DTO.Response;
+using Core.Entities;
 using Infrastructure.AplicationDbContext;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +14,7 @@ namespace TimeTracking.Web.ServiceExtensions
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                options.UseSqlServer(b => b.MigrationsAssembly("Infrastructure"));
+                
             });
             services.AddScoped<ICustomer, CustomerRepository>();
             services.AddScoped<IEmployee, EmployeeRepository>();
@@ -20,7 +22,7 @@ namespace TimeTracking.Web.ServiceExtensions
             services.AddScoped<IProjectOwner, ProjectOwnerRepository>();
             services.AddScoped<ITaskType, TaskTypeRepository>();
             services.AddScoped<ITimeTracking, TimeTrackingRepository>();
-
+            services.AddHttpContextAccessor();
             return services;
         }
     }

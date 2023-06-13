@@ -20,7 +20,7 @@ namespace TimeTracking.Controllers
             return View();
         }
 [Route("[action]")]
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
             return View();
         }

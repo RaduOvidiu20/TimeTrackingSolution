@@ -30,6 +30,60 @@
     <_ContentIncludedByDefault Remove="Pages\Delete.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Employee\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Employee\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Employee\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Employee\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectName\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectName\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectName\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectName\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectOwner\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectOwner\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectOwner\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ProjectOwner\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TaskType\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TaskType\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TaskType\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TaskType\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TimeTracking\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TimeTracking\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TimeTracking\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\TimeTracking\GetAll.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Customer\Create.cshtml" />
+    <AdditionalFiles Include="Views\Customer\Delete.cshtml" />
+    <AdditionalFiles Include="Views\Customer\Edit.cshtml" />
+    <AdditionalFiles Include="Views\Customer\GetAll.cshtml" />
+    <AdditionalFiles Include="Views\Employee\Create.cshtml" />
+    <AdditionalFiles Include="Views\Employee\Delete.cshtml" />
+    <AdditionalFiles Include="Views\Employee\Edit.cshtml" />
+    <AdditionalFiles Include="Views\Employee\GetAll.cshtml" />
+    <AdditionalFiles Include="Views\ProjectName\Create.cshtml" />
+    <AdditionalFiles Include="Views\ProjectName\Delete.cshtml" />
+    <AdditionalFiles Include="Views\ProjectName\Edit.cshtml" />
+    <AdditionalFiles Include="Views\ProjectName\GetAll.cshtml" />
+    <AdditionalFiles Include="Views\ProjectOwner\Create.cshtml" />
+    <AdditionalFiles Include="Views\ProjectOwner\Delete.cshtml" />
+    <AdditionalFiles Include="Views\ProjectOwner\Edit.cshtml" />
+    <AdditionalFiles Include="Views\ProjectOwner\GetAll.cshtml" />
+    <AdditionalFiles Include="Views\TaskType\Create.cshtml" />
+    <AdditionalFiles Include="Views\TaskType\Delete.cshtml" />
+    <AdditionalFiles Include="Views\TaskType\Edit.cshtml" />
+    <AdditionalFiles Include="Views\TaskType\GetAll.cshtml" />
+    <AdditionalFiles Include="Views\TimeTracking\Create.cshtml" />
+    <AdditionalFiles Include="Views\TimeTracking\Delete.cshtml" />
+    <AdditionalFiles Include="Views\TimeTracking\Edit.cshtml" />
+    <AdditionalFiles Include="Views\TimeTracking\GetAll.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Customer\Create.cshtml" />
+    <UpToDateCheckInput Remove="Pages\Customer\Delete.cshtml" />
+    <UpToDateCheckInput Remove="Pages\Customer\Edit.cshtml" />
+    <UpToDateCheckInput Remove="Pages\Customer\GetAll.cshtml" />
   </ItemGroup>
 
 </Project>

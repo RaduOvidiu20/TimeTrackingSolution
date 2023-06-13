@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<TaskType>> GetAllTaskTypes()
         {
-            return await _db.TaskTypes.Include(t => t.TaskTypeId).ToListAsync();
+            return await _db.TaskTypes.OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task<TaskType> GetTaskTypeById(Guid taskId)

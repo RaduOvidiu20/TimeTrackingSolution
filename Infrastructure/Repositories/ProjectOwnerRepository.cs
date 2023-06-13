@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<ProjectOwner>> GetAllProjectOwners()
         {
-            return await _db.ProjectOwners.Include(t => t.ProjectOwnerId).ToListAsync();
+            return await _db.ProjectOwners.OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task<ProjectOwner> GetProjectOwnerById(Guid projectOwnerId)

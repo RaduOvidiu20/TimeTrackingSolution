@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Infrastructure.Repositories;
+﻿using Core.Contracts;
+using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,11 +8,11 @@ namespace TimeTracking.Web.Controllers;
 [Route("[controller]")]
 public class EmployeeController : Controller
 {
-    private readonly EmployeeRepository _employeeRepository;
+    private readonly IEmployee _employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository)
+    public EmployeeController(IEmployee employee)
     {
-        _employeeRepository = employeeRepository;
+        _employeeRepository = employee;
     }
 
     [HttpGet]

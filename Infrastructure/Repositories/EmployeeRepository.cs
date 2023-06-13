@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Employee>> GetAllEmployees()
         {
-            return await _db.Employees.Include(t => t.EmployeeId).ToListAsync();
+            return await _db.Employees.OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task<Employee> GetEmployeeById(Guid employeeId)
@@ -48,7 +48,7 @@ namespace Infrastructure.Repositories
             matchingEmployee.Name = employee.Name;
             matchingEmployee.Age = employee.Age;
             matchingEmployee.Phone = employee.Phone;
-
+            await _db.SaveChangesAsync();
             return matchingEmployee;
         }
     }

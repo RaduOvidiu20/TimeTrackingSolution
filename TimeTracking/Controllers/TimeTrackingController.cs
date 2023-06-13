@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repositories;
+﻿using Core.Contracts;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,20 +10,20 @@ namespace TimeTracking.Web.Controllers;
 [Route("[controller]")]
 public class TimeTrackingController : Controller
 {
-    private readonly TimeTrackingRepository _timeTrackingRepository;
-    private readonly CustomerRepository _customerRepository;
-    private readonly EmployeeRepository _employeeRepository;
-    private readonly ProjectNameRepository _projectNameRepository;
-    private readonly ProjectOwnerRepository _projectOwnerRepository;
-    private readonly TaskTypeRepository _taskTypeRepository;
+    private readonly ITimeTracking _timeTrackingRepository;
+    private readonly ICustomer _customerRepository;
+    private readonly IEmployee _employeeRepository;
+    private readonly IProjectName _projectNameRepository;
+    private readonly IProjectOwner _projectOwnerRepository;
+    private readonly ITaskType _taskTypeRepository;
 
     public TimeTrackingController(
-        TimeTrackingRepository timeTrackingRepository,
-        CustomerRepository customerRepository,
-        EmployeeRepository employeeRepository,
-        ProjectNameRepository projectNameRepository,
-        ProjectOwnerRepository projectOwnerRepository,
-        TaskTypeRepository taskTypeRepository
+        ITimeTracking timeTrackingRepository,
+        ICustomer customerRepository,
+        IEmployee employeeRepository,
+        IProjectName projectNameRepository,
+        IProjectOwner projectOwnerRepository,
+        ITaskType taskTypeRepository
     )
     {
         _timeTrackingRepository = timeTrackingRepository;
@@ -37,8 +38,9 @@ public class TimeTrackingController : Controller
     [Route("[action]")]
     public async Task<IActionResult> GetAll()
     {
-        List<Core.Entities.TimeTracking> timeTracking = await _timeTrackingRepository.GetAllTimeTrackings();
-        return View(timeTracking);
+        List<Core.Entities.TimeTracking> timeTrackings = await _timeTrackingRepository.GetAllTimeTrackings();
+        ViewBag.TimeTracking = await _timeTrackingRepository.GetAllTimeTrackings();
+        return View(timeTrackings);
     }
 
     [HttpGet]
