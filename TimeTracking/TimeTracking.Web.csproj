@@ -21,4 +21,15 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Customer\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Customer\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Customer\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Customer\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\GetAll.cshtml" />
+  </ItemGroup>
+
 </Project>

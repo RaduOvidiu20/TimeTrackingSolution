@@ -8,7 +8,7 @@ namespace Core.Contracts
         Task<List<TaskType>> GetAllTaskTypes();
         Task<TaskType> AddTaskType(TaskType request);
         Task<TaskType> UpdateTaskType(TaskType taskName);
-        Task<bool> DeleteProject(Guid taskId);
+        Task<bool> DeleteTask(Guid taskId);
     }
 
 }

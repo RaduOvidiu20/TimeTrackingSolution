@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class CustomerRrepository : ICustomer
+    public class CustomerRepository : ICustomer
     {
         private readonly ApplicationDbContext _db;
-        public CustomerRrepository(ApplicationDbContext db)
+        public CustomerRepository(ApplicationDbContext db)
         {
             _db = db;
         }

@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
             return request;
         }
 
-        public async Task<bool> DeleteProject(Guid taskId)
+        public async Task<bool> DeleteTask(Guid taskId)
         {
             _db.RemoveRange(_db.TaskTypes.Where(t => t.TaskTypeId == taskId));
             int deletedRows = await _db.SaveChangesAsync();
