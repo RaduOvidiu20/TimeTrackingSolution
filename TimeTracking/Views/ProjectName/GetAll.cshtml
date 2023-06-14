@@ -5,4 +5,8 @@
     Layout = "_Layout";
 }
 
-<h2>Projects</h2>
+<h2 class="text-decoration-underline">Projects</h2>
+@foreach (ProjectName projectName in ViewBag.Projects)
+{
+    <h2>@projectName.Name</h2>
+}

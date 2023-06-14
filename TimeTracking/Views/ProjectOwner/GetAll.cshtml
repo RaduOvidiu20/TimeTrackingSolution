@@ -5,4 +5,8 @@
     Layout = "_Layout";
 }
 
-<h2>Project owners</h2>
+<h2 class="text-decoration-underline">Project owners</h2>
+@foreach (ProjectOwner projectOwner in ViewBag.Owners)
+{
+    <h2>@projectOwner.Name</h2>
+}

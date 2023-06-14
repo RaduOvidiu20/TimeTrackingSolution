@@ -14,7 +14,7 @@ namespace TimeTracking.Web.ServiceExtensions
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                
+                options.UseSqlServer(b => b.MigrationsAssembly("Infrastructure"));
             });
             services.AddScoped<ICustomer, CustomerRepository>();
             services.AddScoped<IEmployee, EmployeeRepository>();

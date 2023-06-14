@@ -20,8 +20,7 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> GetAll()
     {
         List<ProjectName> projectNames = await _projectNameRepository.GetAllProjectNames();
-        ViewBag.Projects = projectNames.Select(pn => new SelectListItem()
-            { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
+        ViewBag.Projects = await _projectNameRepository.GetAllProjectNames();
         return View(projectNames);
     }
 

@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<TimeTracking>> GetAllTimeTrackings()
         {
-            return await _db.TimeTrackings.OrderBy(t => t.TimeTrackingId).ToListAsync();
+            return await _db.TimeTrackings.ToListAsync();
         }
 
         public async Task<TimeTracking> GetTimeTrackingById(Guid timeTrackingId)

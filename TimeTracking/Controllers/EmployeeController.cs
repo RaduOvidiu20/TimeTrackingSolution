@@ -20,8 +20,7 @@ public class EmployeeController : Controller
     public async Task<IActionResult> GetAll()
     {
         List<Employee> employees = await _employeeRepository.GetAllEmployees();
-        ViewBag.Employees = employees.Select(e => new SelectListItem()
-            { Text = e.Name, Value = e.EmployeeId.ToString() });
+        ViewBag.Employees = await _employeeRepository.GetAllEmployees();
         return View(employees);
     }
 

@@ -20,8 +20,7 @@ public class ProjectOwnerController : Controller
     public async Task<IActionResult> GetAll()
     {
         List<ProjectOwner> projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
-        ViewBag.Owners = projectOwners.Select(po => new SelectListItem()
-            { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
+        ViewBag.Owners = await _projectOwnerRepository.GetAllProjectOwners();
         return View(projectOwners);
     }
 

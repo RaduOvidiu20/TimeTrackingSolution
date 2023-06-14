@@ -6,6 +6,7 @@ namespace Core.Entities
     public class TimeTracking
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TimeTrackingId { get; set; }
 
 

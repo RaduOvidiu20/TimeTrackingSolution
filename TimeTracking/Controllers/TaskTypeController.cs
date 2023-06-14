@@ -21,7 +21,7 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> GetAll()
     {
         List<TaskType> taskTypes = await _taskTypeRepository.GetAllTaskTypes();
-        ViewBag.Tasks = taskTypes.Select(t => new SelectListItem() { Text = t.Name, Value = t.TaskTypeId.ToString() });
+        ViewBag.Tasks = await _taskTypeRepository.GetAllTaskTypes();
         return View(taskTypes);
     }
 

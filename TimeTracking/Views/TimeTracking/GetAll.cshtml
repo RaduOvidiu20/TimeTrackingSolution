@@ -5,8 +5,17 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
-@foreach (TimeTracking data in ViewBag.Tasks)
+<h2>Records</h2>
+@foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
 {
-    <h3></h3>
+    <h3>@timeTracking.Customer.Name</h3>
+    <h3>@timeTracking.Employee.Name</h3>
+    <h3>@timeTracking.ProjectName.Name</h3>
+    <h3>@timeTracking.ProjectOwner.Name</h3>
+    <h3>@timeTracking.TaskType.Name</h3>
+    <h3>@timeTracking.WorkedHours.Value</h3>
+    <h3>@timeTracking.StartDate.Value</h3>
+    <h3>@timeTracking.EndDate.Value</h3>
+    <h3>@timeTracking.Comment</h3>
+    <h3>@timeTracking.RecordStatus</h3>
 }

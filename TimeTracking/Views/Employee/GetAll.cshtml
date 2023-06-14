@@ -4,6 +4,11 @@
 @{
     ViewBag.Title = "Employees";
     Layout = "_Layout";
+}<h2 class="text-decoration-underline">Employees</h2>
+@foreach (Employee employee in ViewBag.Employees)
+{
+    <h1>@employee.Name</h1>
+    <h1>@employee.Age</h1>
+    <h1>@employee.Phone</h1>
 }
-
-<h2>Employees</h2>
+}
