@@ -71,6 +71,7 @@ public class EmployeeController : Controller
         }
 
         Employee updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
+        
         return RedirectToAction("GetAll");
     }
 

@@ -1,6 +1,4 @@
 ﻿using Core.Contracts;
-using Core.DTO.Response;
-using Core.Entities;
 using Infrastructure.AplicationDbContext;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

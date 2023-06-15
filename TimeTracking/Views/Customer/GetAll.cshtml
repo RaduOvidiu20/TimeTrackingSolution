@@ -1,14 +1,38 @@
 ﻿@model System.Collections.Generic.List<Core.Entities.Customer>
 
+
 @{
     ViewBag.Title = "Customers";
     Layout = "_Layout";
 }
 <h2 class="text-decoration-underline">Customers</h2>
 
-@foreach (Customer customer in ViewBag.Customers)
-{
-    <h1>@customer.Email</h1>
-    <h1>@customer.Name</h1>
-    <h1>@customer.Phone</h1>
-}
+<a asp-controller="Customer" asp-action="Create" class="text-info">Create customer</a>
+<form asp-controller="Customer" asp-action="GetAll" method="get">
+    <table class="table" id="customerTable">
+        <thead>
+        <tr>
+            <th hidden="hidden">Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (Customer customer in Model)
+        {
+            <tbody>
+            <tr>
+                <td hidden="hidden">@customer.CustomerId</td>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Phone</td>
+                <td>
+                    <a asp-controller="Customer" asp-action="Edit" asp-route-customerId="@customer.CustomerId" class="button-link button-blue-back">Edit</a>
+                    <a asp-controller="Customer" asp-action="Delete" asp-route-customerId="@customer.CustomerId" class="button-link button-red-back">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table >
+</form>

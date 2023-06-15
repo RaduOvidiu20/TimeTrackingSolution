@@ -30,7 +30,13 @@ namespace Infrastructure.Repositories
 
         public async Task<List<TimeTracking>> GetAllTimeTrackings()
         {
-            return await _db.TimeTrackings.ToListAsync();
+            return await _db.TimeTrackings
+                .Include(t=>t.Customer)
+                .Include(t=>t.Employee)
+                .Include(t=>t.ProjectName)
+                .Include(t=>t.ProjectOwner)
+                .Include(t=>t.TaskType)
+                .ToListAsync();
         }
 
         public async Task<TimeTracking> GetTimeTrackingById(Guid timeTrackingId)
@@ -42,6 +48,7 @@ namespace Infrastructure.Repositories
         {
             TimeTracking matchingTimeTracking = await _db.TimeTrackings.FirstOrDefaultAsync(t => t.TimeTrackingId == timeTracking.TimeTrackingId);
             if (matchingTimeTracking != null) { return timeTracking; }
+
             matchingTimeTracking.Customer = timeTracking.Customer;
             matchingTimeTracking.Employee = timeTracking.Employee;
             matchingTimeTracking.ProjectName = timeTracking.ProjectName;
@@ -52,6 +59,7 @@ namespace Infrastructure.Repositories
             matchingTimeTracking.EndDate = timeTracking.EndDate;
             matchingTimeTracking.Comment = timeTracking.Comment;
             matchingTimeTracking.RecordStatus = timeTracking.RecordStatus;
+            
             return matchingTimeTracking;
         }
     }

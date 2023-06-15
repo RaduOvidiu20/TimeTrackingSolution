@@ -6,7 +6,26 @@
 }
 
 <h2 class="text-decoration-underline">Project owners</h2>
-@foreach (ProjectOwner projectOwner in ViewBag.Owners)
-{
-    <h2>@projectOwner.Name</h2>
-}
+<form asp-controller="ProjectOwner" asp-action="GetAll" method="get">
+    
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    @foreach (ProjectOwner projectOwner in ViewBag.Owners)
+    {
+        <tbody>
+        <tr>
+            <td>
+                @projectOwner.Name
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    }
+</table>
+</form>

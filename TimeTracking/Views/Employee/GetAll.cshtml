@@ -4,11 +4,28 @@
 @{
     ViewBag.Title = "Employees";
     Layout = "_Layout";
-}<h2 class="text-decoration-underline">Employees</h2>
-@foreach (Employee employee in ViewBag.Employees)
-{
-    <h1>@employee.Name</h1>
-    <h1>@employee.Age</h1>
-    <h1>@employee.Phone</h1>
 }
-}
+<h2 class="text-decoration-underline">Employees</h2>
+<form asp-controller="Employee" asp-action="GetAll" method="get">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone number</th>
+        <th></th>
+    </tr>
+    </thead>
+    @foreach (Employee employee in ViewBag.Employees)
+    {
+        <tbody>
+        <tr>
+            <td>@employee.Name</td>
+            <td>@employee.Age</td>
+            <td>@employee.Phone</td>
+            <td></td>
+        </tr>
+        </tbody>
+    }
+</table>
+</form>

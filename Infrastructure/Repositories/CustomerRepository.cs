@@ -41,14 +41,14 @@ namespace Infrastructure.Repositories
         public async Task<Customer> UpdateCustomer(Customer customer)
         {
             Customer? matchigCustomer = await _db.Customers.FirstOrDefaultAsync(t => t.CustomerId == customer.CustomerId);
-            if (matchigCustomer != null)
+            if (matchigCustomer == null)
             {
                 return customer;
             }
             matchigCustomer.Name = customer.Name;
             matchigCustomer.Email = customer.Email;
             matchigCustomer.Phone = customer.Phone;
-            int countUpdated = await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
             return matchigCustomer;
         }
     }

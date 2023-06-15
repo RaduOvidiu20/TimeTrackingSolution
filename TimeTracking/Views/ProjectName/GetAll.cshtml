@@ -6,7 +6,28 @@
 }
 
 <h2 class="text-decoration-underline">Projects</h2>
-@foreach (ProjectName projectName in ViewBag.Projects)
-{
-    <h2>@projectName.Name</h2>
-}
+<form asp-controller="ProjectName" asp-action="GetAll" method="get">
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+
+    @foreach (ProjectName projectName in ViewBag.Projects)
+    {
+        <tbody>
+        <tr>
+            <td>@projectName.Name</td>
+            <td></td>
+        </tr>
+
+        </tbody>
+    }
+
+
+</table>
+</form>

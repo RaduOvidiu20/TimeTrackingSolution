@@ -6,7 +6,25 @@
 }
 
 <h2 class="text-decoration-underline">Tasks</h2>
-@foreach (TaskType taskType in ViewBag.Tasks)
-{
-    <h2>@taskType.Name</h2>
-}
+<form asp-controller="TaskType" asp-action="GetAll" method="get">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th> 
+        <th></th>
+    </tr>
+    </thead>
+    @foreach (TaskType taskType in ViewBag.Tasks)
+    {
+        <tbody>
+        <tr>
+            <td>
+                @taskType.Name
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    }
+    
+</table>
+</form>

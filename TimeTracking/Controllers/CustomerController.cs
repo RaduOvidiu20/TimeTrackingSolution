@@ -27,12 +27,13 @@ namespace TimeTracking.Web.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> Create()
         {
             List<Customer> customers = await _customer.GetAllCustomers();
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
-            return View();
+            return PartialView("Create");
         }
 
         [Route("[action]")]
@@ -70,7 +71,8 @@ namespace TimeTracking.Web.Controllers
                 RedirectToAction("GetAll");
             }
 
-            Customer updatedCustomer = await _customer.UpdateCustomer(customer);
+            await _customer.UpdateCustomer(customer);
+            
             return RedirectToAction("GetAll");
         }
 

@@ -5,17 +5,42 @@
     Layout = "_Layout";
 }
 
-<h2>Records</h2>
-@foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
-{
-    <h3>@timeTracking.Customer.Name</h3>
-    <h3>@timeTracking.Employee.Name</h3>
-    <h3>@timeTracking.ProjectName.Name</h3>
-    <h3>@timeTracking.ProjectOwner.Name</h3>
-    <h3>@timeTracking.TaskType.Name</h3>
-    <h3>@timeTracking.WorkedHours.Value</h3>
-    <h3>@timeTracking.StartDate.Value</h3>
-    <h3>@timeTracking.EndDate.Value</h3>
-    <h3>@timeTracking.Comment</h3>
-    <h3>@timeTracking.RecordStatus</h3>
-}
+<h2 class="text-decoration-underline">Records</h2>
+<form asp-controller="TimeTracking" asp-action="GetAll" method="get">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Customer</th>
+        <th>Employee</th>
+        <th>Project</th>
+        <th>Project owner</th>
+        <th>Task</th>
+        <th>Worked hours</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Comment</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    @foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
+    {
+        <tbody>
+        <tr>
+            <td>@timeTracking.Customer.Name</td>
+            <td>@timeTracking.Employee.Name</td>
+            <td>@timeTracking.ProjectName.Name</td>
+            <td>@timeTracking.ProjectOwner.Name</td>
+            <td>@timeTracking.TaskType.Name</td>
+            <td>@timeTracking.WorkedHours.Value</td>
+            <td>@timeTracking.StartDate.Value</td>
+            <td>@timeTracking.EndDate.Value</td>
+            <td>@timeTracking.Comment</td>
+            <td>@timeTracking.RecordStatus</td>
+            <td></td>
+        </tr>
+
+        </tbody>
+    }
+</table>
+</form>
