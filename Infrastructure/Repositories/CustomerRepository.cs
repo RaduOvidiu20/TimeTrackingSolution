@@ -2,6 +2,7 @@
 using Core.Entities;
 using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Repositories
 {
@@ -30,7 +31,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Customer>> GetAllCustomers()
         {
-            return await _db.Customers.OrderBy(temp => temp.Name).ToListAsync();
+            return await _db.Customers.ToListAsync();
         }
 
         public async Task<Customer> GetCustomerById(Guid customerId)
@@ -40,7 +41,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Customer> UpdateCustomer(Customer customer)
         {
-            Customer? matchigCustomer = await _db.Customers.FirstOrDefaultAsync(t => t.CustomerId == customer.CustomerId);
+            Customer matchigCustomer = await _db.Customers.FirstOrDefaultAsync(t => t.CustomerId == customer.CustomerId);
             if (matchigCustomer == null)
             {
                 return customer;

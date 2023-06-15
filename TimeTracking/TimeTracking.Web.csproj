@@ -53,9 +53,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="Views\Customer\Create.cshtml" />
-    <AdditionalFiles Include="Views\Customer\Delete.cshtml" />
-    <AdditionalFiles Include="Views\Customer\Edit.cshtml" />
     <AdditionalFiles Include="Views\Customer\GetAll.cshtml" />
     <AdditionalFiles Include="Views\Employee\Create.cshtml" />
     <AdditionalFiles Include="Views\Employee\Delete.cshtml" />

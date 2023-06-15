@@ -33,7 +33,8 @@ namespace TimeTracking.Web.Controllers
             List<Customer> customers = await _customer.GetAllCustomers();
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
-            return PartialView("Create");
+            
+            return PartialView("_CustomerData");
         }
 
         [Route("[action]")]
@@ -41,7 +42,7 @@ namespace TimeTracking.Web.Controllers
         public async Task<IActionResult> Create(Customer customer)
         {
             Customer newCustomer = await _customer.AddCustomer(customer);
-
+            
             return RedirectToAction("GetAll", "Customer");
         }
 
@@ -54,11 +55,14 @@ namespace TimeTracking.Web.Controllers
             {
                 RedirectToAction("GetAll");
             }
-
+            
             List<Customer> customers = await _customer.GetAllCustomers();
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
-            return View(customer);
+           
+            
+            return PartialView("_CustomerData", customer);
+            
         }
 
         [Route("[action]/{customerId}")]
@@ -70,7 +74,7 @@ namespace TimeTracking.Web.Controllers
             {
                 RedirectToAction("GetAll");
             }
-
+            
             await _customer.UpdateCustomer(customer);
             
             return RedirectToAction("GetAll");
@@ -85,8 +89,8 @@ namespace TimeTracking.Web.Controllers
             {
                 RedirectToAction("GetAll");
             }
-
-            return View(customer);
+            
+            return PartialView("_CustomerData",customer);
         }
 
         [Route("[action]/{customerId}")]
@@ -101,6 +105,13 @@ namespace TimeTracking.Web.Controllers
 
             await _customer.DeleteCustomer(customer.CustomerId);
             return RedirectToAction("GetAll");
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public  IActionResult CustomerData()
+        {
+            return PartialView("_CustomerData");
         }
     }
 }

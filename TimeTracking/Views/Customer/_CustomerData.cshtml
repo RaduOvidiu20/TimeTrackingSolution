@@ -1,0 +1,38 @@
+﻿@model Customer;
+
+@{
+  Layout = "_Layout";
+  ViewBag.Title = "Delete Customer";
+  
+}
+  <a asp-controller="Customer" asp-action="GetAll" class="text-info">Back to customers list</a>
+
+<form asp-controller="Customer"  method="post">
+   <div class="container mt-3" readonly>
+      <label asp-for="CustomerId" class="text-decoration-underline form-label w-50 mb-1">Customer name</label>
+     <input asp-for="CustomerId" class="form-control w-50 mb-3"/>
+    
+    </div>
+  <div class="container mt-3">
+    <label asp-for="Name" class="text-decoration-underline form-label w-50 mb-1">Customer name</label>
+    <input asp-for="Name" class="form-control w-50 mb-3"/>
+    <span asp-validation-for="Name"></span>
+  </div>
+  <div class="container">
+    <label asp-for="Email" class="text-decoration-underline form-label w-50 mb-1">Customer email</label>
+    <input asp-for="Email" type="email" class="form-control w-50 mb-3"/>
+        <span asp-validation-for="Email"></span>
+  </div>
+  <div class="container">
+    <label asp-for="Phone" class="text-decoration-underline form-label w-50 mb-1">Customer phone number</label>
+    <input asp-for="Phone" type="number" class="form-control w-50"/>
+        <span asp-validation-for="Phone"></span>
+  </div>
+  <div class="container">
+    
+    <button type="submit" class="btn btn-outline-danger mt-3" asp-action="Delete" style="width: 16.5%">Delete</button>
+    <button type="submit" class="btn btn-outline-info mt-3" asp-action="Edit" style="width: 16.5%">Edit</button>
+    <button type="submit" class="btn btn-outline-success mt-3" asp-action="Create" style="width: 16.5%">Create</button>
+  </div>
+  
+</form>
