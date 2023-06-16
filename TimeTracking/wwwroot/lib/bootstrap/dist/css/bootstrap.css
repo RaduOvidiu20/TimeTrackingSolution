@@ -82,7 +82,9 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+.navbar-custom {
+  border-top: 10px solid #00eaff; /* Replace #007bff with your desired color */
+}
 hr {
   margin: 1rem 0;
   color: inherit;

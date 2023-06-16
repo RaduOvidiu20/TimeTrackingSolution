@@ -1,46 +1,57 @@
-﻿@model System.Collections.Generic.List<Core.Entities.TimeTracking>;
+﻿@model System.Collections.Generic.List<Core.Entities.TimeTracking>
 
 @{
     ViewBag.Title = "Time Tracking";
     Layout = "_Layout";
 }
 
-<h2 class="text-decoration-underline">Records</h2>
-<form asp-controller="TimeTracking" asp-action="GetAll" method="get">
-<table class="table">
-    <thead>
-    <tr>
-        <th>Customer</th>
-        <th>Employee</th>
-        <th>Project</th>
-        <th>Project owner</th>
-        <th>Task</th>
-        <th>Worked hours</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Comment</th>
-        <th>Status</th>
-        <th></th>
-    </tr>
-    </thead>
-    @foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
-    {
-        <tbody>
-        <tr>
-            <td>@timeTracking.Customer.Name</td>
-            <td>@timeTracking.Employee.Name</td>
-            <td>@timeTracking.ProjectName.Name</td>
-            <td>@timeTracking.ProjectOwner.Name</td>
-            <td>@timeTracking.TaskType.Name</td>
-            <td>@timeTracking.WorkedHours.Value</td>
-            <td>@timeTracking.StartDate.Value</td>
-            <td>@timeTracking.EndDate.Value</td>
-            <td>@timeTracking.Comment</td>
-            <td>@timeTracking.RecordStatus</td>
-            <td></td>
-        </tr>
-
-        </tbody>
-    }
-</table>
-</form>
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">@ViewBag.Title</h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="TaskType" asp-action="Create" class="btn btn-info mb-3">New task</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="timeTrackingTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Customer</th>
+                    <th>Employee</th>
+                    <th>Project</th>
+                    <th>Project Owner</th>
+                    <th>Task</th>
+                    <th>Worked Hours</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
+                {
+                    <tr>
+                        <td hidden="hidden">@timeTracking.TimeTrackingId</td>
+                        <td>@timeTracking.Customer.Name</td>
+                        <td>@timeTracking.Employee.Name</td>
+                        <td>@timeTracking.ProjectName.Name</td>
+                        <td>@timeTracking.ProjectOwner.Name</td>
+                        <td>@timeTracking.TaskType.Name</td>
+                        <td>@timeTracking.WorkedHours</td>
+                        <td>@timeTracking.StartDate</td>
+                        <td>@timeTracking.EndDate</td>
+                        <td>@timeTracking.Comment</td>
+                        <td>@timeTracking.RecordStatus</td>
+                        <td>
+                            <a asp-controller="TimeTracking" asp-action="Edit" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-info container">Edit</a>
+                            <a asp-controller="TimeTracking" asp-action="Delete" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-info container">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

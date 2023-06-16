@@ -50,6 +50,8 @@
     <_ContentIncludedByDefault Remove="Pages\TimeTracking\Delete.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\TimeTracking\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\TimeTracking\GetAll.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\DataTable\DataTableCSS.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\DataTable\DataTableJS.js" />
   </ItemGroup>
 
   <ItemGroup>

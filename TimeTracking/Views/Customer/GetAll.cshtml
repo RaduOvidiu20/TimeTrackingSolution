@@ -1,38 +1,44 @@
-﻿@model System.Collections.Generic.List<Core.Entities.Customer>
+﻿@model List<Customer>
 
 
 @{
     ViewBag.Title = "Customers";
     Layout = "_Layout";
 }
-<h2 class="text-decoration-underline">Customers</h2>
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">@ViewBag.Title</h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="Customer" asp-action="Create" class="btn btn-info mb-3">New customer</a>
 
-<a asp-controller="Customer" asp-action="CustomerData" class="text-info">Create customer</a>
-<form asp-controller="Customer" asp-action="GetAll" method="get">
-    <table class="table" id="customerTable">
-        <thead>
-        <tr>
-            <th hidden="hidden">Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th></th>
-        </tr>
-        </thead>
-        @foreach (Customer customer in Model)
-        {
-            <tbody>
-            <tr>
-                <td hidden="hidden">@customer.CustomerId</td>
-                <td>@customer.Name</td>
-                <td>@customer.Email</td>
-                <td>@customer.Phone</td>
-                <td>
-                    <a asp-controller="Customer" asp-action="Edit" asp-route-customerId="@customer.CustomerId" class="text-info">Edit</a>
-                    <a asp-controller="Customer" asp-action="Delete" asp-route-customerId="@customer.CustomerId" class="text-info">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        }
-    </table >
-</form>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="customerTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (Customer customer in Model)
+                {
+                    <tr>
+                        <td hidden="hidden">@customer.CustomerId</td>
+                        <td>@customer.Name</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Phone</td>
+                        <td>
+                            <a asp-controller="Customer" asp-action="Edit" asp-route-customerId="@customer.CustomerId" class="text-info container">Edit</a>
+                            <a asp-controller="Customer" asp-action="Delete" asp-route-customerId="@customer.CustomerId" class="text-info container">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

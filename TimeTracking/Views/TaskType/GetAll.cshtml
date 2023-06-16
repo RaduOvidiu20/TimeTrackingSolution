@@ -5,26 +5,35 @@
     Layout = "_Layout";
 }
 
-<h2 class="text-decoration-underline">Tasks</h2>
-<form asp-controller="TaskType" asp-action="GetAll" method="get">
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th> 
-        <th></th>
-    </tr>
-    </thead>
-    @foreach (TaskType taskType in ViewBag.Tasks)
-    {
-        <tbody>
-        <tr>
-            <td>
-                @taskType.Name
-            </td>
-            <td></td>
-        </tr>
-        </tbody>
-    }
-    
-</table>
-</form>
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">@ViewBag.Title</h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="TaskType" asp-action="Create" class="btn btn-info mb-3">New task</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="taskTypeTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (TaskType taskType in ViewBag.Tasks)
+                {
+                    <tr>
+                        <td hidden="hidden">@taskType.TaskTypeId</td>
+                        <td>@taskType.Name</td>
+                        <td>
+                            <a asp-controller="TaskType" asp-action="Edit" asp-route-customerId="@taskType.TaskTypeId" class="text-info container">Edit</a>
+                            <a asp-controller="TaskType" asp-action="Delete" asp-route-customerId="@taskType.TaskTypeId" class="text-info container">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

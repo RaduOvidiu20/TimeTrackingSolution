@@ -21,7 +21,7 @@ public class EmployeeController : Controller
     {
         List<Employee> employees = await _employeeRepository.GetAllEmployees();
         ViewBag.Employees = await _employeeRepository.GetAllEmployees();
-        return View(employees);
+        return View();
     }
 
     [HttpGet]
@@ -31,7 +31,7 @@ public class EmployeeController : Controller
         List<Employee> employees = await _employeeRepository.GetAllEmployees();
         ViewBag.Employees = employees.Select(e => new SelectListItem()
             { Text = e.Name, Value = e.EmployeeId.ToString() });
-        return View();
+        return PartialView("_Create");
     }
 
     [HttpPost]
@@ -55,9 +55,9 @@ public class EmployeeController : Controller
         List<Employee> employees = await _employeeRepository.GetAllEmployees();
         ViewBag.Employees = employees.Select(e => new SelectListItem()
             { Text = e.Name, Value = e.EmployeeId.ToString() });
-        Employee updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
+        
 
-        return View(updatedEmployee);
+        return PartialView("_Edit", employee);
     }
 
     [HttpPost]
@@ -65,7 +65,7 @@ public class EmployeeController : Controller
     public async Task<IActionResult> Edit(Employee employee)
     {
         Employee newEmployee = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
-        if (employee == null)
+        if (newEmployee == null)
         {
             RedirectToAction("GetAll");
         }
@@ -74,9 +74,9 @@ public class EmployeeController : Controller
         
         return RedirectToAction("GetAll");
     }
-
-    [HttpGet]
     [Route("[action]/{employeeId}")]
+    [HttpGet]
+    
     public async Task<IActionResult> Delete(Guid employeeId)
     {
         Employee employee = await _employeeRepository.GetEmployeeById(employeeId);
@@ -85,17 +85,17 @@ public class EmployeeController : Controller
             RedirectToAction("GetAll");
         }
 
-        Employee updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
+        
 
-        return View(updatedEmployee);
+        return PartialView("_Delete",employee);
     }
-
-    [HttpPost]
     [Route("[action]/{employeeId}")]
-    public async Task<IActionResult> Delete(Employee employeeId)
+    [HttpPost]
+    
+    public async Task<IActionResult> Delete(Employee employee)
     {
-        Employee employee = await _employeeRepository.GetEmployeeById(employeeId.EmployeeId);
-        if (employee == null)
+        Employee? employeeModel = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
+        if (employeeModel == null)
         {
             RedirectToAction("GetAll");
         }

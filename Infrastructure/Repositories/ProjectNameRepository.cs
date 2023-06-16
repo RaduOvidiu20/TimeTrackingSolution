@@ -41,11 +41,12 @@ namespace Infrastructure.Repositories
         public async Task<ProjectName> UpdateProject(ProjectName projectName)
         {
             ProjectName matchingProjectName = await _db.ProjectNames.FirstOrDefaultAsync(t => t.ProjectNameId == projectName.ProjectNameId);
-            if (matchingProjectName != null)
+            if (matchingProjectName == null)
             {
                 return projectName;
             }
             matchingProjectName.Name = projectName.Name;
+            await _db.SaveChangesAsync();
             return matchingProjectName;
         }
     }

@@ -12,40 +12,40 @@ namespace Core.Entities
 
         [Required]
         [ForeignKey("Customers")]
-        public virtual Customer? Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
 
         [Required]
         [ForeignKey("Employees")]
-        public virtual Employee? Employee { get; set; }
+        public virtual Employee Employee { get; set; }
 
 
         [Required]
         [ForeignKey("ProjectNames")]
-        public virtual ProjectName? ProjectName { get; set; }
+        public virtual ProjectName ProjectName { get; set; }
 
 
         [Required]
         [ForeignKey("ProjectOwners")]
-        public virtual ProjectOwner? ProjectOwner { get; set; }
+        public virtual ProjectOwner ProjectOwner { get; set; }
 
         [Required]
         [ForeignKey("TaskTypes")]
-        public virtual TaskType? TaskType { get; set; }
+        public virtual TaskType TaskType { get; set; }
 
         [Required]
-        public int? WorkedHours { get; set; }
+        public int WorkedHours { get; set; }
 
         [Required]
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
 
-        public string? Comment { get; set; }
+        public string Comment { get; set; }
 
         [Required]
-        public string? RecordStatus { get; set; }
+        public string RecordStatus { get; set; }
 
 
         public override string ToString()

@@ -41,7 +41,7 @@ namespace Infrastructure.Repositories
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
             Employee matchingEmployee = await _db.Employees.FirstOrDefaultAsync(t => t.EmployeeId == employee.EmployeeId);
-            if (matchingEmployee != null)
+            if (matchingEmployee == null)
             {
                 return employee;
             }

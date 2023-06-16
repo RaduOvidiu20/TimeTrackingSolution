@@ -1,31 +1,42 @@
-﻿@model System.Collections.Generic.List<Core.Entities.Employee>
-
+﻿@model List<Employee>
 
 @{
     ViewBag.Title = "Employees";
     Layout = "_Layout";
 }
-<h2 class="text-decoration-underline">Employees</h2>
-<form asp-controller="Employee" asp-action="GetAll" method="get">
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Phone number</th>
-        <th></th>
-    </tr>
-    </thead>
-    @foreach (Employee employee in ViewBag.Employees)
-    {
-        <tbody>
-        <tr>
-            <td>@employee.Name</td>
-            <td>@employee.Age</td>
-            <td>@employee.Phone</td>
-            <td></td>
-        </tr>
-        </tbody>
-    }
-</table>
-</form>
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">@ViewBag.Title</h2>
+    </div>
+    <div class="card-body">
+         <a asp-controller="Employee" asp-action="Create" class="btn btn-info mb-3">New employee</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="employeeTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone number</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (Employee employee in ViewBag.Employees)
+                {
+                    <tr>
+                        <td hidden="hidden">@employee.EmployeeId</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Phone</td>
+                        <td>
+                            <a asp-controller="Employee" asp-action="Edit" asp-route-employeeId="@employee.EmployeeId" class="text-info container">Edit</a>
+                            <a asp-controller="Employee" asp-action="Delete" asp-route-employeeId="@employee.EmployeeId" class="text-info container">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
