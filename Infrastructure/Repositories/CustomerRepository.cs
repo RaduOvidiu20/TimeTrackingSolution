@@ -1,6 +1,5 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -8,9 +7,9 @@ namespace Infrastructure.Repositories
 {
     public class CustomerRepository : ICustomer
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
 
-        public CustomerRepository(ApplicationDbContext db)
+        public CustomerRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }

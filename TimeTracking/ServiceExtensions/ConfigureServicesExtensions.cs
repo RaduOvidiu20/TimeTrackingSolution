@@ -1,5 +1,5 @@
 ﻿using Core.Contracts;
-using Infrastructure.AplicationDbContext;
+using Infrastructure.ApplicationDbContext;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +7,8 @@ namespace TimeTracking.Web.ServiceExtensions
 {
     public static class ConfigureServicesExtensions
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureServices(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {

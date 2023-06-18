@@ -1,14 +1,14 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class ProjectOwnerRepository : IProjectOwner
     {
-        private readonly ApplicationDbContext _db;
-        public ProjectOwnerRepository(ApplicationDbContext db)
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
+
+        public ProjectOwnerRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }
@@ -39,7 +39,8 @@ namespace Infrastructure.Repositories
 
         public async Task<ProjectOwner> UpdateProject(ProjectOwner projectOwner)
         {
-            ProjectOwner matchingProjectOwner = await _db.ProjectOwners.FirstOrDefaultAsync(t => t.ProjectOwnerId == projectOwner.ProjectOwnerId);
+            ProjectOwner matchingProjectOwner =
+                await _db.ProjectOwners.FirstOrDefaultAsync(t => t.ProjectOwnerId == projectOwner.ProjectOwnerId);
             matchingProjectOwner.Name = projectOwner.Name;
             await _db.SaveChangesAsync();
             return matchingProjectOwner;

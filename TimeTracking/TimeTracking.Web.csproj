@@ -63,9 +63,6 @@
     <AdditionalFiles Include="Views\TaskType\Delete.cshtml" />
     <AdditionalFiles Include="Views\TaskType\Edit.cshtml" />
     <AdditionalFiles Include="Views\TaskType\GetAll.cshtml" />
-    <AdditionalFiles Include="Views\TimeTracking\Create.cshtml" />
-    <AdditionalFiles Include="Views\TimeTracking\Delete.cshtml" />
-    <AdditionalFiles Include="Views\TimeTracking\Edit.cshtml" />
     <AdditionalFiles Include="Views\TimeTracking\GetAll.cshtml" />
   </ItemGroup>
 

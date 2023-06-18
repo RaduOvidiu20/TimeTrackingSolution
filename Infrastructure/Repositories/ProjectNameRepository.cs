@@ -1,14 +1,14 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class ProjectNameRepository : IProjectName
     {
-        private readonly ApplicationDbContext _db;
-        public ProjectNameRepository(ApplicationDbContext db)
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
+
+        public ProjectNameRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }
@@ -25,7 +25,6 @@ namespace Infrastructure.Repositories
             _db.RemoveRange(_db.ProjectNames.Where(t => t.ProjectNameId == projectId));
             int deletedRows = await _db.SaveChangesAsync();
             return deletedRows > 0;
-
         }
 
         public async Task<List<ProjectName>> GetAllProjectNames()
@@ -40,11 +39,13 @@ namespace Infrastructure.Repositories
 
         public async Task<ProjectName> UpdateProject(ProjectName projectName)
         {
-            ProjectName matchingProjectName = await _db.ProjectNames.FirstOrDefaultAsync(t => t.ProjectNameId == projectName.ProjectNameId);
+            ProjectName matchingProjectName =
+                await _db.ProjectNames.FirstOrDefaultAsync(t => t.ProjectNameId == projectName.ProjectNameId);
             if (matchingProjectName == null)
             {
                 return projectName;
             }
+
             matchingProjectName.Name = projectName.Name;
             await _db.SaveChangesAsync();
             return matchingProjectName;

@@ -1,5 +1,5 @@
 using TimeTracking.Web.ServiceExtensions;
- 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
-    
+
 app.Run();
 
-public partial class Program { }
+public partial class Program
+{
+}

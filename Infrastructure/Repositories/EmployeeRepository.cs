@@ -1,14 +1,15 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class EmployeeRepository : IEmployee
     {
-        private readonly ApplicationDbContext _db;
-        public EmployeeRepository(ApplicationDbContext db)
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
+
+        public EmployeeRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }
@@ -25,7 +26,6 @@ namespace Infrastructure.Repositories
             _db.Employees.RemoveRange(_db.Employees.Where(t => t.EmployeeId == employeeId));
             int deletedRows = await _db.SaveChangesAsync();
             return deletedRows > 0;
-
         }
 
         public async Task<List<Employee>> GetAllEmployees()
@@ -40,11 +40,13 @@ namespace Infrastructure.Repositories
 
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
-            Employee matchingEmployee = await _db.Employees.FirstOrDefaultAsync(t => t.EmployeeId == employee.EmployeeId);
+            Employee matchingEmployee =
+                await _db.Employees.FirstOrDefaultAsync(t => t.EmployeeId == employee.EmployeeId);
             if (matchingEmployee == null)
             {
                 return employee;
             }
+
             matchingEmployee.Name = employee.Name;
             matchingEmployee.Age = employee.Age;
             matchingEmployee.Phone = employee.Phone;

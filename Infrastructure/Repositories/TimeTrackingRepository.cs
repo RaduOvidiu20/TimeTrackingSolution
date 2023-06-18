@@ -1,14 +1,14 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class TimeTrackingRepository : ITimeTracking
     {
-        private readonly ApplicationDbContext _db;
-        public TimeTrackingRepository(ApplicationDbContext db)
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
+
+        public TimeTrackingRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }
@@ -25,17 +25,16 @@ namespace Infrastructure.Repositories
             _db.RemoveRange(_db.TimeTrackings.Where(t => t.TimeTrackingId == timeTrackingId));
             int deletedRows = await _db.SaveChangesAsync();
             return deletedRows > 0;
-
         }
 
         public async Task<List<TimeTracking>> GetAllTimeTrackings()
         {
             return await _db.TimeTrackings
-                .Include(t=>t.Customer)
-                .Include(t=>t.Employee)
-                .Include(t=>t.ProjectName)
-                .Include(t=>t.ProjectOwner)
-                .Include(t=>t.TaskType)
+                .Include(t => t.Customer)
+                .Include(t => t.Employee)
+                .Include(t => t.ProjectName)
+                .Include(t => t.ProjectOwner)
+                .Include(t => t.TaskType)
                 .ToListAsync();
         }
 
@@ -46,8 +45,12 @@ namespace Infrastructure.Repositories
 
         public async Task<TimeTracking> UpdateTimeTracking(TimeTracking timeTracking)
         {
-            TimeTracking matchingTimeTracking = await _db.TimeTrackings.FirstOrDefaultAsync(t => t.TimeTrackingId == timeTracking.TimeTrackingId);
-            if (matchingTimeTracking != null) { return timeTracking; }
+            TimeTracking matchingTimeTracking =
+                await _db.TimeTrackings.FirstOrDefaultAsync(t => t.TimeTrackingId == timeTracking.TimeTrackingId);
+            if (matchingTimeTracking != null)
+            {
+                return timeTracking;
+            }
 
             matchingTimeTracking.Customer = timeTracking.Customer;
             matchingTimeTracking.Employee = timeTracking.Employee;

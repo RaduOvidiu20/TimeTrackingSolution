@@ -1,14 +1,14 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.AplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class TaskTypeRepository : ITaskType
     {
-        private readonly ApplicationDbContext _db;
-        public TaskTypeRepository(ApplicationDbContext db)
+        private readonly ApplicationDbContext.ApplicationDbContext _db;
+
+        public TaskTypeRepository(ApplicationDbContext.ApplicationDbContext db)
         {
             _db = db;
         }
@@ -39,8 +39,13 @@ namespace Infrastructure.Repositories
 
         public async Task<TaskType> UpdateTaskType(TaskType taskName)
         {
-            TaskType matchingTaskType = await _db.TaskTypes.FirstOrDefaultAsync(t => t.TaskTypeId == taskName.TaskTypeId);
-            if (matchingTaskType == null) { return taskName; }
+            TaskType matchingTaskType =
+                await _db.TaskTypes.FirstOrDefaultAsync(t => t.TaskTypeId == taskName.TaskTypeId);
+            if (matchingTaskType == null)
+            {
+                return taskName;
+            }
+
             matchingTaskType.Name = taskName.Name;
             await _db.SaveChangesAsync();
             return matchingTaskType;
