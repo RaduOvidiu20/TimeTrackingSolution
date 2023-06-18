@@ -56,17 +56,8 @@
 
   <ItemGroup>
     <AdditionalFiles Include="Views\Customer\GetAll.cshtml" />
-    <AdditionalFiles Include="Views\Employee\Create.cshtml" />
-    <AdditionalFiles Include="Views\Employee\Delete.cshtml" />
-    <AdditionalFiles Include="Views\Employee\Edit.cshtml" />
     <AdditionalFiles Include="Views\Employee\GetAll.cshtml" />
-    <AdditionalFiles Include="Views\ProjectName\Create.cshtml" />
-    <AdditionalFiles Include="Views\ProjectName\Delete.cshtml" />
-    <AdditionalFiles Include="Views\ProjectName\Edit.cshtml" />
     <AdditionalFiles Include="Views\ProjectName\GetAll.cshtml" />
-    <AdditionalFiles Include="Views\ProjectOwner\Create.cshtml" />
-    <AdditionalFiles Include="Views\ProjectOwner\Delete.cshtml" />
-    <AdditionalFiles Include="Views\ProjectOwner\Edit.cshtml" />
     <AdditionalFiles Include="Views\ProjectOwner\GetAll.cshtml" />
     <AdditionalFiles Include="Views\TaskType\Create.cshtml" />
     <AdditionalFiles Include="Views\TaskType\Delete.cshtml" />

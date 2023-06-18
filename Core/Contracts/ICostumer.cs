@@ -9,7 +9,5 @@ namespace Core.Contracts
         Task<Customer> AddCustomer(Customer customer);
         Task<Customer> UpdateCustomer(Customer customer);
         Task<bool> DeleteCustomer(Guid customerId);
-
-
     }
 }

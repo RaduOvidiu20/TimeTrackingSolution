@@ -27,8 +27,8 @@
                         <td hidden="hidden">@taskType.TaskTypeId</td>
                         <td>@taskType.Name</td>
                         <td>
-                            <a asp-controller="TaskType" asp-action="Edit" asp-route-customerId="@taskType.TaskTypeId" class="text-info container">Edit</a>
-                            <a asp-controller="TaskType" asp-action="Delete" asp-route-customerId="@taskType.TaskTypeId" class="text-info container">Delete</a>
+                            <a asp-controller="TaskType" asp-action="Edit" asp-route-taskId="@taskType.TaskTypeId" class="text-info container">Edit</a>
+                            <a asp-controller="TaskType" asp-action="Delete" asp-route-taskId="@taskType.TaskTypeId" class="text-info container">Delete</a>
                         </td>
                     </tr>
                 }

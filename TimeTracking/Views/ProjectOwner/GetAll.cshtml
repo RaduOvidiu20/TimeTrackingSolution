@@ -27,8 +27,8 @@
                         <td hidden="hidden">@projectOwner.ProjectOwnerId</td>
                         <td>@projectOwner.Name</td>
                         <td>
-                            <a asp-controller="ProjectOwner" asp-action="Edit" asp-route-customerId="@projectOwner.ProjectOwnerId" class="text-info container">Edit</a>
-                            <a asp-controller="ProjectOwner" asp-action="Delete" asp-route-customerId="@projectOwner.ProjectOwnerId" class="text-info container">Delete</a>
+                            <a asp-controller="ProjectOwner" asp-action="Edit" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-info container">Edit</a>
+                            <a asp-controller="ProjectOwner" asp-action="Delete" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-info container">Delete</a>
                         </td>
                     </tr>
                 }

@@ -1,10 +1,7 @@
 ﻿using Core.Contracts;
-using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
@@ -63,14 +60,18 @@ public class TimeTrackingController : Controller
             { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
         ViewBag.TaskTypes = taskTypes.Select(t => new SelectListItem()
             { Text = t.Name, Value = t.TaskTypeId.ToString() });
-
-        return View();
+        
+        
+        return PartialView("_Create");
     }
 
     [HttpPost]
     [Route("[action]")]
     public async Task<IActionResult> Create(Core.Entities.TimeTracking timeTracking)
     {
+        List<Customer> customers = await _customerRepository.GetAllCustomers();
+        var tt = customers.Select(c => new SelectListItem()
+            { Text = c.Name, Value = c.CustomerId.ToString() });
         Core.Entities.TimeTracking newTimeTracking = await _timeTrackingRepository.AddTimeTracking(timeTracking);
         return RedirectToAction("GetAll", "TimeTracking");
     }
@@ -84,6 +85,7 @@ public class TimeTrackingController : Controller
         {
             RedirectToAction("GetAll");
         }
+
         List<Customer> customers = await _customerRepository.GetAllCustomers();
         List<Employee> employees = await _employeeRepository.GetAllEmployees();
         List<ProjectName> projectNames = await _projectNameRepository.GetAllProjectNames();
@@ -101,7 +103,7 @@ public class TimeTrackingController : Controller
         ViewBag.TaskTypes = taskTypes.Select(t => new SelectListItem()
             { Text = t.Name, Value = t.TaskTypeId.ToString() });
         Core.Entities.TimeTracking updatedTimeTracking = await _timeTrackingRepository.UpdateTimeTracking(timeTracking);
-        return View(updatedTimeTracking);
+        return PartialView("_Edit", updatedTimeTracking);
     }
 
     [HttpPost]
@@ -117,7 +119,6 @@ public class TimeTrackingController : Controller
 
         Core.Entities.TimeTracking updatedTimeTracking = await _timeTrackingRepository.UpdateTimeTracking(timeTracking);
         return RedirectToAction("GetAll");
-
     }
 
     [HttpGet]
@@ -131,7 +132,7 @@ public class TimeTrackingController : Controller
         }
 
         await _timeTrackingRepository.DeleteTimeTracking(timeTrackingId);
-        return View(timeTracking);
+        return PartialView("_Delete", timeTracking);
     }
 
     [HttpPost]
@@ -146,6 +147,6 @@ public class TimeTrackingController : Controller
         }
 
         await _timeTrackingRepository.DeleteTimeTracking(timeTracking.TimeTrackingId);
-        return View(timeTracking);
+        return RedirectToAction("GetAll");
     }
 }

@@ -1,0 +1,30 @@
+﻿@model ProjectOwner;
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Delete Owner";
+
+}
+<form asp-controller="ProjectOwner" method="post">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2 class="card-title">@ViewBag.Title</h2>
+            <h4 class="text-danger">Are you sure you want to delete this owner?</h4>
+            <a asp-controller="ProjectOwner" asp-action="GetAll" class="btn btn-info mt-3 mb-3">Back to customers list</a>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="ProjectOwnerId" class="form-label">Project ID</label>
+                <input asp-for="ProjectOwnerId" class="form-control"readonly="readonly"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Owner Name</label>
+                <input asp-for="Name" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger" asp-action="Delete">@ViewBag.Title</button>
+        </div>
+    </div>
+</form>

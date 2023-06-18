@@ -60,7 +60,6 @@ namespace TimeTracking.Web.Controllers
             ViewBag.Customers = customers.Select(c => new SelectListItem()
                 { Text = c.Name, Value = c.CustomerId.ToString() });
 
-
             return PartialView("_Edit", customer);
         }
 
@@ -78,6 +77,7 @@ namespace TimeTracking.Web.Controllers
 
             return RedirectToAction("GetAll");
         }
+
 
         [Route("[action]/{customerId}")]
         [HttpGet]

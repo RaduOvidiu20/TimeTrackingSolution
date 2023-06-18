@@ -59,7 +59,7 @@ namespace Infrastructure.Repositories
             matchingTimeTracking.EndDate = timeTracking.EndDate;
             matchingTimeTracking.Comment = timeTracking.Comment;
             matchingTimeTracking.RecordStatus = timeTracking.RecordStatus;
-            
+            await _db.SaveChangesAsync();
             return matchingTimeTracking;
         }
     }

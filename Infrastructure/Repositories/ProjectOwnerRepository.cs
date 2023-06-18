@@ -41,6 +41,7 @@ namespace Infrastructure.Repositories
         {
             ProjectOwner matchingProjectOwner = await _db.ProjectOwners.FirstOrDefaultAsync(t => t.ProjectOwnerId == projectOwner.ProjectOwnerId);
             matchingProjectOwner.Name = projectOwner.Name;
+            await _db.SaveChangesAsync();
             return matchingProjectOwner;
         }
     }

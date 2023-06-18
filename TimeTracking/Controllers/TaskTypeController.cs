@@ -31,7 +31,7 @@ public class TaskTypeController : Controller
     {
         List<TaskType> taskTypes = await _taskTypeRepository.GetAllTaskTypes();
         ViewBag.Tasks = taskTypes.Select(t => new SelectListItem() { Text = t.Name, Value = t.TaskTypeId.ToString() });
-        return View();
+        return PartialView("_Create");
     }
 
     [HttpPost]
@@ -43,11 +43,11 @@ public class TaskTypeController : Controller
     }
 
     [HttpGet]
-    [Route("[action]/{taskTypeId}")]
-    public async Task<IActionResult> Edit(Guid taskTypeId)
+    [Route("[action]/{taskId}")]
+    public async Task<IActionResult> Edit(Guid taskId)
     {
-        TaskType taskType = await _taskTypeRepository.GetTaskTypeById(taskTypeId);
-        if (taskType == null)
+        TaskType newTaskType = await _taskTypeRepository.GetTaskTypeById(taskId);
+        if (newTaskType == null)
         {
             RedirectToAction("GetAll");
         }
@@ -55,12 +55,12 @@ public class TaskTypeController : Controller
         List<TaskType> taskTypes = await _taskTypeRepository.GetAllTaskTypes();
         ViewBag.Tasks = taskTypes.Select(t => new SelectListItem() { Text = t.Name, Value = t.TaskTypeId.ToString() });
 
-        TaskType updatedTaskType = await _taskTypeRepository.UpdateTaskType(taskType);
-        return View(updatedTaskType);
+        TaskType updatedTaskType = await _taskTypeRepository.UpdateTaskType(newTaskType);
+        return PartialView("_Edit",updatedTaskType);
     }
 
     [HttpPost]
-    [Route("[action]/{taskType}")]
+    [Route("[action]/{taskId}")]
     public async Task<IActionResult> Edit(TaskType taskType)
     {
         TaskType newTaskType = await _taskTypeRepository.GetTaskTypeById(taskType.TaskTypeId);
@@ -84,7 +84,7 @@ public class TaskTypeController : Controller
         }
 
         await _taskTypeRepository.DeleteTask(taskId);
-        return View(taskType);
+        return PartialView("_Delete",taskType);
     }
 
     [HttpPost]
@@ -98,6 +98,6 @@ public class TaskTypeController : Controller
         }
 
         await _taskTypeRepository.DeleteTask(taskType.TaskTypeId);
-        return View(taskType);
+        return RedirectToAction("GetAll");
     }
 }

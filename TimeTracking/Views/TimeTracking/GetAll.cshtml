@@ -10,7 +10,7 @@
         <h2 class="card-title">@ViewBag.Title</h2>
     </div>
     <div class="card-body">
-        <a asp-controller="TaskType" asp-action="Create" class="btn btn-info mb-3">New task</a>
+        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-info mb-3">New record</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="timeTrackingTable">
                 <thead>
@@ -40,8 +40,8 @@
                         <td>@timeTracking.ProjectOwner.Name</td>
                         <td>@timeTracking.TaskType.Name</td>
                         <td>@timeTracking.WorkedHours</td>
-                        <td>@timeTracking.StartDate</td>
-                        <td>@timeTracking.EndDate</td>
+                        <td>@timeTracking.StartDate.ToString("MM/dd/yyyy")</td>
+                        <td>@timeTracking.EndDate.ToString("MM/dd/yyyy")</td>
                         <td>@timeTracking.Comment</td>
                         <td>@timeTracking.RecordStatus</td>
                         <td>

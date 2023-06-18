@@ -1,0 +1,29 @@
+﻿@model ProjectOwner;
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Create Owner";
+
+}
+<form asp-controller="ProjectOwner" method="post">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2 class="card-title">@ViewBag.Title</h2>
+            <a asp-controller="ProjectOwner" asp-action="GetAll" class="btn btn-info mt-3 mb-3">Back to Employees list</a>
+        </div>
+        <div class="card-body">
+            <div class="form-group" hidden="hidden">
+                <label asp-for="ProjectOwnerId" class="form-label">Owner ID</label>
+                <input asp-for="ProjectOwnerId" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Owner Name</label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" asp-action="Create">@ViewBag.Title</button>
+        </div>
+    </div>
+</form>

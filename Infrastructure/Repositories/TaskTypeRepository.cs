@@ -40,8 +40,9 @@ namespace Infrastructure.Repositories
         public async Task<TaskType> UpdateTaskType(TaskType taskName)
         {
             TaskType matchingTaskType = await _db.TaskTypes.FirstOrDefaultAsync(t => t.TaskTypeId == taskName.TaskTypeId);
-            if (matchingTaskType != null) { return taskName; }
+            if (matchingTaskType == null) { return taskName; }
             matchingTaskType.Name = taskName.Name;
+            await _db.SaveChangesAsync();
             return matchingTaskType;
         }
     }
