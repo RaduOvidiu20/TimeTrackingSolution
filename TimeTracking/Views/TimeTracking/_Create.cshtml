@@ -18,35 +18,35 @@
             </div>
             <div class="form-group">
                 <label asp-for="Customer" class="form-label">Customer Name</label>
-                <select asp-for="Customer!.CustomerId" asp-items="@ViewBag.Customers" class="form-control">
+                <select asp-for="Customer" asp-items="@ViewBag.Customers" class="form-control">
                     <option value="">Customer...</option>
                 </select>
                 <span asp-validation-for="Customer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee" class="form-label">Employee Name</label>
-                <select asp-for="Employee!.EmployeeId" asp-items="@ViewBag.Employees" class="form-control">
+                <select asp-for="Employee" asp-items="@ViewBag.Employees" class="form-control">
                     <option value="">Employees...</option>
                 </select>
                 <span asp-validation-for="Employee" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProjectName" class="form-label">Project Name</label>
-                <select asp-for="ProjectName!.ProjectNameId" asp-items="@ViewBag.ProjectNames" class="form-control">
+                <select asp-for="ProjectName" asp-items="@ViewBag.ProjectNames" class="form-control">
                     <option value="">Project...</option>
                 </select>
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProjectOwner" class="form-label">Project Owner</label>
-                <select asp-for="ProjectOwner!.ProjectOwnerId" asp-items="@ViewBag.ProjectOwners" class="form-control">
+                <select asp-for="ProjectOwner" asp-items="@ViewBag.ProjectOwners" class="form-control">
                     <option value="">Owner...</option>
                 </select>
                 <span asp-validation-for="ProjectOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TaskType" class="form-label">Task Name</label>
-                <select asp-for="TaskType!.TaskTypeId" asp-items="@ViewBag.TaskTypes" class="form-control">
+                <select asp-for="TaskType" asp-items="@ViewBag.TaskTypes" class="form-control">
                     <option value="">Task...</option>
                 </select>
                 <span asp-validation-for="TaskType" class="text-danger"></span>
