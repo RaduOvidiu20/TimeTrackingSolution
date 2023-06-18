@@ -19,8 +19,10 @@ public class ProjectNameController : Controller
     [Route("[action]")]
     public async Task<IActionResult> GetAll()
     {
-        List<ProjectName> projectNames = await _projectNameRepository.GetAllProjectNames();
+        var projectNames = await _projectNameRepository.GetAllProjectNames();
+        
         ViewBag.Projects = await _projectNameRepository.GetAllProjectNames();
+        
         return View(projectNames);
     }
 
@@ -28,9 +30,11 @@ public class ProjectNameController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create()
     {
-        List<ProjectName> projectNames = await _projectNameRepository.GetAllProjectNames();
-        ViewBag.Projects = projectNames.Select(pn => new SelectListItem()
+        var projectNames = await _projectNameRepository.GetAllProjectNames();
+        
+        ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
+        
         return PartialView("_Create");
     }
 
@@ -38,7 +42,8 @@ public class ProjectNameController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create(ProjectName projectName)
     {
-        ProjectName newProjectName = await _projectNameRepository.AddProject(projectName);
+        var newProjectName = await _projectNameRepository.AddProject(projectName);
+        
         return RedirectToAction("GetAll", "ProjectName");
     }
 
@@ -46,62 +51,60 @@ public class ProjectNameController : Controller
     [Route("[action]/{projectId}")]
     public async Task<IActionResult> Edit(Guid projectId)
     {
-        ProjectName projectName = await _projectNameRepository.GetProjectNameById(projectId);
-        if (projectName == null)
-        {
+        var projectName = await _projectNameRepository.GetProjectNameById(projectId);
+        
+        if (projectName == null) 
             RedirectToAction("GetAll");
-        }
 
-        List<ProjectName> projectNames = await _projectNameRepository.GetAllProjectNames();
-        ViewBag.Projects = projectNames.Select(pn => new SelectListItem()
+        var projectNames = await _projectNameRepository.GetAllProjectNames();
+        
+        ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
-        
-        ProjectName updatedProject = await _projectNameRepository.UpdateProject(projectName);
-        
-        return PartialView("_Edit",updatedProject);
+
+        var updatedProject = await _projectNameRepository.UpdateProject(projectName);
+
+        return PartialView("_Edit", updatedProject);
     }
 
-    
     [HttpPost]
     [Route("[action]/{projectId}")]
     public async Task<IActionResult> Edit(ProjectName project)
     {
-        ProjectName newProject = await _projectNameRepository.GetProjectNameById(project.ProjectNameId);
-        if (newProject == null)
-        {
-            RedirectToAction("GetAll");
-        }
-
-        ProjectName updatedProject = await _projectNameRepository.UpdateProject(project);
+        var newProject = await _projectNameRepository.GetProjectNameById(project.ProjectNameId);
         
+        if (newProject == null) 
+            RedirectToAction("GetAll");
+
+        var updatedProject = await _projectNameRepository.UpdateProject(project);
+
         return RedirectToAction("GetAll");
     }
+
     [Route("[action]/{projectId}")]
     [HttpGet]
-    
     public async Task<IActionResult> Delete(Guid projectId)
     {
-        ProjectName projectName = await _projectNameRepository.GetProjectNameById(projectId);
+        var projectName = await _projectNameRepository.GetProjectNameById(projectId);
+        
         if (projectName == null)
-        {
             RedirectToAction("GetAll");
-        }
 
         await _projectNameRepository.DeleteProject(projectId);
-        return PartialView("_Delete",projectName);
+        
+        return PartialView("_Delete", projectName);
     }
+
     [Route("[action]/{projectId}")]
     [HttpPost]
-    
     public async Task<IActionResult> Delete(ProjectName projectName)
     {
-        ProjectName newProjectName = await _projectNameRepository.GetProjectNameById(projectName.ProjectNameId);
-        if (newProjectName == null)
-        {
+        var newProjectName = await _projectNameRepository.GetProjectNameById(projectName.ProjectNameId);
+        
+        if (newProjectName == null) 
             RedirectToAction("GetAll");
-        }
 
         await _projectNameRepository.DeleteProject(projectName.ProjectNameId);
+        
         return RedirectToAction("GetAll");
     }
 }

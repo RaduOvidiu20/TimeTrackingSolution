@@ -19,8 +19,10 @@ public class ProjectOwnerController : Controller
     [Route("[action]")]
     public async Task<IActionResult> GetAll()
     {
-        List<ProjectOwner> projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
+        var projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
+        
         ViewBag.Owners = await _projectOwnerRepository.GetAllProjectOwners();
+        
         return View(projectOwners);
     }
 
@@ -28,9 +30,11 @@ public class ProjectOwnerController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create()
     {
-        List<ProjectOwner> projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
-        ViewBag.Owners = projectOwners.Select(po => new SelectListItem()
+        var projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
+        
+        ViewBag.Owners = projectOwners.Select(po => new SelectListItem
             { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
+        
         return PartialView("_Create");
     }
 
@@ -38,7 +42,8 @@ public class ProjectOwnerController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create(ProjectOwner projectOwner)
     {
-        ProjectOwner newProjectOwner = await _projectOwnerRepository.AddProjectOwner(projectOwner);
+        var newProjectOwner = await _projectOwnerRepository.AddProjectOwner(projectOwner);
+        
         return RedirectToAction("GetAll", "ProjectOwner");
     }
 
@@ -46,30 +51,32 @@ public class ProjectOwnerController : Controller
     [Route("[action]/{ownerId}")]
     public async Task<IActionResult> Edit(Guid ownerId)
     {
-        ProjectOwner projectOwner = await _projectOwnerRepository.GetProjectOwnerById(ownerId);
+        var projectOwner = await _projectOwnerRepository.GetProjectOwnerById(ownerId);
+        
         if (projectOwner == null)
-        {
             RedirectToAction("GetAll");
-        }
 
-        List<ProjectOwner> projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
-        ViewBag.Owners = projectOwners.Select(po => new SelectListItem()
+        var projectOwners = await _projectOwnerRepository.GetAllProjectOwners();
+        
+        ViewBag.Owners = projectOwners.Select(po => new SelectListItem
             { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
-        ProjectOwner updatedProjectOwner = await _projectOwnerRepository.UpdateProject(projectOwner);
-        return PartialView("_Edit",updatedProjectOwner);
+        
+        var updatedProjectOwner = await _projectOwnerRepository.UpdateProject(projectOwner);
+        
+        return PartialView("_Edit", updatedProjectOwner);
     }
 
     [HttpPost]
     [Route("[action]/{ownerId}")]
     public async Task<IActionResult> Edit(ProjectOwner projectOwner)
     {
-        ProjectOwner newProject = await _projectOwnerRepository.GetProjectOwnerById(projectOwner.ProjectOwnerId);
+        var newProject = await _projectOwnerRepository.GetProjectOwnerById(projectOwner.ProjectOwnerId);
+        
         if (newProject == null)
-        {
             RedirectToAction("GetAll");
-        }
 
-        ProjectOwner updatedProject = await _projectOwnerRepository.UpdateProject(projectOwner);
+        var updatedProject = await _projectOwnerRepository.UpdateProject(projectOwner);
+        
         return RedirectToAction("GetAll");
     }
 
@@ -77,27 +84,27 @@ public class ProjectOwnerController : Controller
     [Route("[action]/{ownerId}")]
     public async Task<IActionResult> Delete(Guid ownerId)
     {
-        ProjectOwner projectOwner = await _projectOwnerRepository.GetProjectOwnerById(ownerId);
+        var projectOwner = await _projectOwnerRepository.GetProjectOwnerById(ownerId);
+        
         if (projectOwner == null)
-        {
             RedirectToAction("GetAll");
-        }
 
         await _projectOwnerRepository.DeleteProject(ownerId);
-        return PartialView("_Delete",projectOwner);
+        
+        return PartialView("_Delete", projectOwner);
     }
 
     [HttpPost]
     [Route("[action]/{ownerId}")]
     public async Task<IActionResult> Delete(ProjectOwner ownerId)
     {
-        ProjectOwner newProjectName = await _projectOwnerRepository.GetProjectOwnerById(ownerId.ProjectOwnerId);
-        if (newProjectName == null)
-        {
+        var newProjectName = await _projectOwnerRepository.GetProjectOwnerById(ownerId.ProjectOwnerId);
+        
+        if (newProjectName == null) 
             RedirectToAction("GetAll");
-        }
 
         await _projectOwnerRepository.DeleteProject(ownerId.ProjectOwnerId);
+        
         return RedirectToAction("GetAll");
     }
 }

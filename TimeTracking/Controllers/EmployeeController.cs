@@ -19,8 +19,10 @@ public class EmployeeController : Controller
     [Route("[action]")]
     public async Task<IActionResult> GetAll()
     {
-        List<Employee> employees = await _employeeRepository.GetAllEmployees();
+        var employees = await _employeeRepository.GetAllEmployees();
+
         ViewBag.Employees = await _employeeRepository.GetAllEmployees();
+
         return View();
     }
 
@@ -28,9 +30,11 @@ public class EmployeeController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create()
     {
-        List<Employee> employees = await _employeeRepository.GetAllEmployees();
-        ViewBag.Employees = employees.Select(e => new SelectListItem()
+        var employees = await _employeeRepository.GetAllEmployees();
+
+        ViewBag.Employees = employees.Select(e => new SelectListItem
             { Text = e.Name, Value = e.EmployeeId.ToString() });
+
         return PartialView("_Create");
     }
 
@@ -38,7 +42,8 @@ public class EmployeeController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create(Employee employee)
     {
-        Employee newEmployee = await _employeeRepository.AddEmployee(employee);
+        var newEmployee = await _employeeRepository.AddEmployee(employee);
+
         return RedirectToAction("GetAll", "Employee");
     }
 
@@ -46,16 +51,15 @@ public class EmployeeController : Controller
     [Route("[action]/{employeeId}")]
     public async Task<IActionResult> Edit(Guid employeeId)
     {
-        Employee employee = await _employeeRepository.GetEmployeeById(employeeId);
-        if (employee == null)
-        {
-            RedirectToAction("GetAll");
-        }
+        var employee = await _employeeRepository.GetEmployeeById(employeeId);
 
-        List<Employee> employees = await _employeeRepository.GetAllEmployees();
-        ViewBag.Employees = employees.Select(e => new SelectListItem()
+        if (employee == null)
+            RedirectToAction("GetAll");
+
+        var employees = await _employeeRepository.GetAllEmployees();
+
+        ViewBag.Employees = employees.Select(e => new SelectListItem
             { Text = e.Name, Value = e.EmployeeId.ToString() });
-        
 
         return PartialView("_Edit", employee);
     }
@@ -64,43 +68,39 @@ public class EmployeeController : Controller
     [Route("[action]/{employeeId}")]
     public async Task<IActionResult> Edit(Employee employee)
     {
-        Employee newEmployee = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
-        if (newEmployee == null)
-        {
-            RedirectToAction("GetAll");
-        }
+        var newEmployee = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
 
-        Employee updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
-        
+        if (newEmployee == null)
+            RedirectToAction("GetAll");
+
+        var updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
+
         return RedirectToAction("GetAll");
     }
+
     [Route("[action]/{employeeId}")]
     [HttpGet]
-    
     public async Task<IActionResult> Delete(Guid employeeId)
     {
-        Employee employee = await _employeeRepository.GetEmployeeById(employeeId);
+        var employee = await _employeeRepository.GetEmployeeById(employeeId);
+
         if (employee == null)
-        {
             RedirectToAction("GetAll");
-        }
 
-        
-
-        return PartialView("_Delete",employee);
+        return PartialView("_Delete", employee);
     }
+
     [Route("[action]/{employeeId}")]
     [HttpPost]
-    
     public async Task<IActionResult> Delete(Employee employee)
     {
-        Employee? employeeModel = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
+        var employeeModel = await _employeeRepository.GetEmployeeById(employee.EmployeeId);
+
         if (employeeModel == null)
-        {
             RedirectToAction("GetAll");
-        }
 
         await _employeeRepository.DeleteEmployee(employee.EmployeeId);
+
         return RedirectToAction("GetAll");
     }
 }

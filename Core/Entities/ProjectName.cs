@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Entities
+namespace Core.Entities;
+
+public class ProjectName
 {
-    public class ProjectName
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid ProjectNameId { get; set; }
+
+    [Required(ErrorMessage = "Project must have a name")]
+    public string Name { get; set; } = string.Empty;
+
+    public override string ToString()
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ProjectNameId { get; set; }
-        public string Name { get; set; }
-        public override string ToString()
-        {
-            return $"Id: {ProjectNameId}, Name: {Name}";
-        }
+        return $"Id: {ProjectNameId}, Name: {Name}";
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Entities
+namespace Core.Entities;
+
+public class TaskType
 {
-    public class TaskType
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid TaskTypeId { get; set; }
+    [Required(ErrorMessage = "Task must have a name.")]
+    public string Name { get; set; } = string.Empty;
+
+    public override string ToString()
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid TaskTypeId { get; set; }
-        public string Name { get; set; }
-        public override string ToString()
-        {
-            return $"Id: {TaskTypeId}, Name: {Name}";
-        }
+        return $"Id: {TaskTypeId}, Name: {Name}";
     }
 }

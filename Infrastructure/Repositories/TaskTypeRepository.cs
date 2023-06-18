@@ -1,54 +1,51 @@
 ﻿using Core.Contracts;
 using Core.Entities;
+using Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Repositories;
+
+public class TaskTypeRepository : ITaskType
 {
-    public class TaskTypeRepository : ITaskType
+    private readonly ApplicationDbContext _db;
+
+    public TaskTypeRepository(ApplicationDbContext db)
     {
-        private readonly ApplicationDbContext.ApplicationDbContext _db;
+        _db = db;
+    }
 
-        public TaskTypeRepository(ApplicationDbContext.ApplicationDbContext db)
-        {
-            _db = db;
-        }
+    public async Task<TaskType> AddTaskType(TaskType request)
+    {
+        _db.TaskTypes.Add(request);
+        await _db.SaveChangesAsync();
+        return request;
+    }
 
-        public async Task<TaskType> AddTaskType(TaskType request)
-        {
-            _db.TaskTypes.AddAsync(request);
-            await _db.SaveChangesAsync();
-            return request;
-        }
+    public async Task<bool> DeleteTask(Guid taskId)
+    {
+        _db.RemoveRange(_db.TaskTypes.Where(t => t.TaskTypeId == taskId));
+        var deletedRows = await _db.SaveChangesAsync();
+        return deletedRows > 0;
+    }
 
-        public async Task<bool> DeleteTask(Guid taskId)
-        {
-            _db.RemoveRange(_db.TaskTypes.Where(t => t.TaskTypeId == taskId));
-            int deletedRows = await _db.SaveChangesAsync();
-            return deletedRows > 0;
-        }
+    public async Task<List<TaskType>> GetAllTaskTypes()
+    {
+        return await _db.TaskTypes.OrderBy(t => t.Name).ToListAsync();
+    }
 
-        public async Task<List<TaskType>> GetAllTaskTypes()
-        {
-            return await _db.TaskTypes.OrderBy(t => t.Name).ToListAsync();
-        }
+    public async Task<TaskType> GetTaskTypeById(Guid taskId)
+    {
+        return await _db.TaskTypes.FindAsync(taskId) ?? throw new Exception($"Task with id {taskId} could not be found.");
+    }
 
-        public async Task<TaskType> GetTaskTypeById(Guid taskId)
-        {
-            return await _db.TaskTypes.FindAsync(taskId);
-        }
-
-        public async Task<TaskType> UpdateTaskType(TaskType taskName)
-        {
-            TaskType matchingTaskType =
-                await _db.TaskTypes.FirstOrDefaultAsync(t => t.TaskTypeId == taskName.TaskTypeId);
-            if (matchingTaskType == null)
-            {
-                return taskName;
-            }
-
-            matchingTaskType.Name = taskName.Name;
-            await _db.SaveChangesAsync();
-            return matchingTaskType;
-        }
+    public async Task<TaskType> UpdateTaskType(TaskType taskName)
+    {
+        var matchingTaskType =
+            await _db.TaskTypes.FirstOrDefaultAsync(t => t.TaskTypeId == taskName.TaskTypeId);
+        if (matchingTaskType == null)
+            return taskName;
+        matchingTaskType.Name = taskName.Name;
+        await _db.SaveChangesAsync();
+        return matchingTaskType;
     }
 }

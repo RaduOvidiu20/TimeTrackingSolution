@@ -1,26 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Entities
+namespace Core.Entities;
+
+public class Customer
 {
-    public class Customer
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid CustomerId { get; set; }
+
+    [Required(ErrorMessage = "Name cannot be null")]
+    public string Name { get; set; }=string.Empty;
+    
+    [EmailAddress(ErrorMessage = "Add a proper email address ")]
+    public string Email { get; set; } = string.Empty;
+    
+    [Phone(ErrorMessage = "Enter a proper phone number")]
+    public int Phone { get; set; }
+
+    public override string ToString()
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CustomerId { get; set; }
-        [Required(ErrorMessage ="Name cannot be null")]
-        public string Name { get; set; }
-        [Required(ErrorMessage ="Email cannot be null")]
-        [EmailAddress(ErrorMessage = "Add a proper email address ")]
-        public string Email { get; set; }
-        [Required(ErrorMessage ="Phone number cannot be null")]
-        [Phone(ErrorMessage = "Enter a proper phone number")]
-        public string Phone { get; set; }
-
-        public override string ToString()
-        {
-            return $"Id: {CustomerId}, Name: {Name}, Email: {Email}, Phone: {Phone}";
-        }
-
+        return $"Id: {CustomerId}, Name: {Name}, Email: {Email}, Phone: {Phone}";
     }
 }
