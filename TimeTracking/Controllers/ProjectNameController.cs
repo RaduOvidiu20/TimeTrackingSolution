@@ -9,10 +9,12 @@ namespace TimeTracking.Web.Controllers;
 public class ProjectNameController : Controller
 {
     private readonly IProjectName _projectNameRepository;
+    private readonly ILogger<ProjectNameController> _logger;
 
-    public ProjectNameController(IProjectName projectNameRepository)
+    public ProjectNameController(IProjectName projectNameRepository, ILogger<ProjectNameController> logger)
     {
         _projectNameRepository = projectNameRepository;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -22,7 +24,7 @@ public class ProjectNameController : Controller
         var projectNames = await _projectNameRepository.GetAllProjectNames();
 
         ViewBag.Projects = await _projectNameRepository.GetAllProjectNames();
-
+        _logger.LogInformation("GetAll action method of  ProjectNameController");
         return View(projectNames);
     }
 
@@ -34,7 +36,7 @@ public class ProjectNameController : Controller
 
         ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
-
+       
         return PartialView("_Create");
     }
 
@@ -43,7 +45,7 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Create(ProjectName projectName)
     {
         var newProjectName = await _projectNameRepository.AddProject(projectName);
-
+        _logger.LogInformation("Create action method of  ProjectNameController");
         return RedirectToAction("GetAll", "ProjectName");
     }
 
@@ -74,7 +76,7 @@ public class ProjectNameController : Controller
             RedirectToAction("GetAll");
 
         var updatedProject = await _projectNameRepository.UpdateProject(project);
-
+        _logger.LogInformation("Edit action method of  ProjectNameController");
         return RedirectToAction("GetAll");
     }
 
@@ -100,7 +102,7 @@ public class ProjectNameController : Controller
             RedirectToAction("GetAll");
 
         await _projectNameRepository.DeleteProject(projectName.ProjectNameId);
-
+        _logger.LogInformation("Edit action method of  ProjectNameController");
         return RedirectToAction("GetAll");
     }
 }

@@ -2,6 +2,7 @@
 using Core.Entities;
 using Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 
 namespace Infrastructure.Repositories;
@@ -9,16 +10,19 @@ namespace Infrastructure.Repositories;
 public class TimeTrackingRepository : ITimeTracking
 {
     private readonly ApplicationDbContext _db;
+    private readonly ILogger<TimeTrackingRepository> _logger;
 
-    public TimeTrackingRepository(ApplicationDbContext db)
+    public TimeTrackingRepository(ApplicationDbContext db, ILogger<TimeTrackingRepository> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     public async Task<TimeTracking> AddTimeTracking(TimeTracking timeTracking)
     {
         _db.Add(timeTracking);
         await _db.SaveChangesAsync();
+        _logger.LogDebug("AddTimeTracking method has been called for record with id {Id}", timeTracking.TimeTrackingId);
         return timeTracking;
     }
 
@@ -26,11 +30,13 @@ public class TimeTrackingRepository : ITimeTracking
     {
         _db.RemoveRange(_db.TimeTracking.Where(t => t.TimeTrackingId == timeTrackingId));
         var deletedRows = await _db.SaveChangesAsync();
+        _logger.LogDebug("DeleteTimeTracking method has been called for record with id {Id}", timeTrackingId);
         return deletedRows > 0;
     }
 
     public async Task<List<TimeTracking>> GetAllTimeTracking()
     {
+        _logger.LogDebug("GetAllTimeTracking method has been called ");
         return await _db.TimeTracking
             .Include(t => t.Customer)
             .Include(t => t.Employee)
@@ -63,6 +69,7 @@ public class TimeTrackingRepository : ITimeTracking
         matchingTimeTracking.Comment = timeTracking.Comment;
         matchingTimeTracking.RecordStatus = timeTracking.RecordStatus;
         await _db.SaveChangesAsync();
+        _logger.LogDebug("UpdateTimeTracking method has been called for record with id {Id}", timeTracking.TimeTrackingId);
         return matchingTimeTracking;
     }
 }

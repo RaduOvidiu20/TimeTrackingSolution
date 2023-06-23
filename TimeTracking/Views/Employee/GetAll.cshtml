@@ -9,7 +9,7 @@
         <h2 class="card-title">@ViewBag.Title</h2>
     </div>
     <div class="card-body">
-        <a asp-controller="Employee" asp-action="Create" class="btn btn-info mb-3">New employee</a>
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-success mb-3">New employee</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="employeeTable">
                 <thead>
@@ -18,6 +18,7 @@
                     <th>Name</th>
                     <th>Age</th>
                     <th>Phone number</th>
+                    <th>Email</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -29,9 +30,14 @@
                         <td>@employee.Name</td>
                         <td>@employee.Age</td>
                         <td>@employee.Phone</td>
+                        <td>@employee.Email</td>
                         <td>
-                            <a asp-controller="Employee" asp-action="Edit" asp-route-employeeId="@employee.EmployeeId" class="text-info container">Edit</a>
-                            <a asp-controller="Employee" asp-action="Delete" asp-route-employeeId="@employee.EmployeeId" class="text-info container">Delete</a>
+                            <a asp-controller="Employee" asp-action="Edit" asp-route-employeeId="@employee.EmployeeId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="Employee" asp-action="Delete" asp-route-employeeId="@employee.EmployeeId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 }

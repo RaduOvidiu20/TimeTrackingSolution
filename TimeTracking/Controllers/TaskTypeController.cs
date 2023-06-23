@@ -9,10 +9,12 @@ namespace TimeTracking.Web.Controllers;
 public class TaskTypeController : Controller
 {
     private readonly ITaskType _taskTypeRepository;
+    private readonly ILogger<TaskTypeController> _logger;
 
-    public TaskTypeController(ITaskType taskTypeRepository)
+    public TaskTypeController(ITaskType taskTypeRepository, ILogger<TaskTypeController> logger)
     {
         _taskTypeRepository = taskTypeRepository;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -22,7 +24,7 @@ public class TaskTypeController : Controller
         var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
 
         ViewBag.Tasks = await _taskTypeRepository.GetAllTaskTypes();
-
+        _logger.LogInformation("GetAll action method of  TaskTypeController");
         return View(taskTypes);
     }
 
@@ -42,7 +44,7 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Create(TaskType taskType)
     {
         var newTaskType = await _taskTypeRepository.AddTaskType(taskType);
-
+        _logger.LogInformation("Create action method of  TaskTypeController");
         return RedirectToAction("GetAll", "TaskType");
     }
 
@@ -72,7 +74,7 @@ public class TaskTypeController : Controller
             RedirectToAction("GetAll");
 
         var updatedTaskType = await _taskTypeRepository.UpdateTaskType(taskType);
-
+        _logger.LogInformation("Edit action method of  TaskTypeController");
         return RedirectToAction("GetAll");
     }
 
@@ -98,7 +100,7 @@ public class TaskTypeController : Controller
             RedirectToAction("GetAll");
 
         await _taskTypeRepository.DeleteTask(taskType.TaskTypeId);
-
+        _logger.LogInformation("Delete action method of  TaskTypeController");
         return RedirectToAction("GetAll");
     }
 }

@@ -16,12 +16,14 @@ public class HomeController : Controller
     [Route("/")]
     public IActionResult Index()
     {
+        _logger.LogInformation("Index action method of  HomeController");
         return View();
     }
 
     [Route("[action]")]
     public IActionResult Contact()
     {
+        _logger.LogInformation("Contact action method of  HomeController");
         return View();
     }
 }

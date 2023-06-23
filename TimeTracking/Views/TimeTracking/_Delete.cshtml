@@ -9,52 +9,62 @@
     <div class="card mt-5">
         <div class="card-header">
             <h2 class="card-title">@ViewBag.Title</h2>
-            <a asp-controller="TimeTracking" asp-action="GetAll" class="btn btn-info mt-3 mb-3">Back to records list</a>
+            <a asp-controller="TimeTracking" asp-action="GetAll" class="btn btn-success mt-3 mb-3">Back to records list</a>
         </div>
         <div class="card-body">
-            <div class="form-group">
+            <div class="form-group" hidden="hidden">
                 <label class="form-label">Record ID</label>
                 <input asp-for="TimeTrackingId" asp class="form-control" readonly="readonly"/>
             </div>
             <div class="form-group">
                 <label class="form-label">Customer Name</label>
                 <input asp-for="@Model.Customers" asp-items="@ViewBag.Customers" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Customer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Employee Name</label>
                 <input asp-for="@Model.Employees" asp-items="@ViewBag.Employees" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Employee" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Project Name</label>
                 <input asp-for="@Model.ProjectNames" asp-items="@ViewBag.ProjectNames" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Project Owner</label>
-                <input asp-for="@Model.ProjectOwners" asp-items="@ViewBag.ProjectOwners" class="form-control" readonly="readonly"/>
+                <input asp-for="@Model.ProjectOwners" asp-items="@ViewBag.ProjectOwners" class="form-control" readonly="readonly">
+                <span asp-validation-for="ProjectOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Task Name</label>
-                <input asp-for="@Model.TaskTypes" asp-items="@ViewBag.TaskTypes" class="form-control" readonly="readonly"/>
+                <input asp-for="@Model.TaskTypes" asp-items="@ViewBag.TaskTypes" class="form-control" readonly="readonly">
+                <span asp-validation-for="TaskType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Worked hours</label>
                 <input asp-for="@Model.WorkedHours" type="number" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="WorkedHours" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Start</label>
                 <input asp-for="@Model.StartDate" type="date" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">End</label>
                 <input asp-for="@Model.EndDate" type="date" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Comment</label>
                 <input asp-for="@Model.Comment" type="text" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Status</label>
                 <input asp-for="@Model.RecordStatus" type="text" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="RecordStatus" class="text-danger"></span>
             </div>
         </div>
         <div class="card-footer">

@@ -10,7 +10,7 @@
         <h2 class="card-title">@ViewBag.Title</h2>
     </div>
     <div class="card-body">
-        <a asp-controller="TaskType" asp-action="Create" class="btn btn-info mb-3">New task</a>
+        <a asp-controller="TaskType" asp-action="Create" class="btn btn-success mb-3">New task</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="taskTypeTable">
                 <thead>
@@ -27,8 +27,12 @@
                         <td hidden="hidden">@taskType.TaskTypeId</td>
                         <td>@taskType.Name</td>
                         <td>
-                            <a asp-controller="TaskType" asp-action="Edit" asp-route-taskId="@taskType.TaskTypeId" class="text-info container">Edit</a>
-                            <a asp-controller="TaskType" asp-action="Delete" asp-route-taskId="@taskType.TaskTypeId" class="text-info container">Delete</a>
+                            <a asp-controller="TaskType" asp-action="Edit" asp-route-taskId="@taskType.TaskTypeId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="TaskType" asp-action="Delete" asp-route-taskId="@taskType.TaskTypeId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 }

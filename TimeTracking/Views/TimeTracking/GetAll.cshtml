@@ -10,7 +10,7 @@
         <h2 class="card-title">@ViewBag.Title</h2>
     </div>
     <div class="card-body">
-        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-info mb-3">New record</a>
+        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-success mb-3">New record</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="timeTrackingTable">
                 <thead>
@@ -45,8 +45,12 @@
                         <td>@timeTracking.Comment</td>
                         <td>@timeTracking.RecordStatus</td>
                         <td>
-                            <a asp-controller="TimeTracking" asp-action="Edit" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-info container">Edit</a>
-                            <a asp-controller="TimeTracking" asp-action="Delete" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-info container">Delete</a>
+                            <a asp-controller="TimeTracking" asp-action="Edit" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="TimeTracking" asp-action="Delete" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 }

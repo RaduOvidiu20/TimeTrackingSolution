@@ -12,6 +12,7 @@ public class TimeTrackingController : Controller
     private readonly IProjectName _projectNameRepository;
     private readonly IProjectOwner _projectOwnerRepository;
     private readonly ITaskType _taskTypeRepository;
+    private readonly ILogger<TimeTrackingController> _logger;
     private readonly ITimeTracking _timeTrackingRepository;
 
     public TimeTrackingController(
@@ -20,8 +21,9 @@ public class TimeTrackingController : Controller
         IEmployee employeeRepository,
         IProjectName projectNameRepository,
         IProjectOwner projectOwnerRepository,
-        ITaskType taskTypeRepository
-    )
+        ITaskType taskTypeRepository,
+        ILogger<TimeTrackingController> logger
+        )
     {
         _timeTrackingRepository = timeTrackingRepository;
         _projectNameRepository = projectNameRepository;
@@ -29,6 +31,7 @@ public class TimeTrackingController : Controller
         _projectOwnerRepository = projectOwnerRepository;
         _customerRepository = customerRepository;
         _taskTypeRepository = taskTypeRepository;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -38,7 +41,7 @@ public class TimeTrackingController : Controller
         var timeTracking = await _timeTrackingRepository.GetAllTimeTracking();
 
         ViewBag.TimeTracking = await _timeTrackingRepository.GetAllTimeTracking();
-
+        _logger.LogInformation("GetAll action method of  TimeTrackingController");
         return View(timeTracking);
     }
 
@@ -71,7 +74,7 @@ public class TimeTrackingController : Controller
     public async Task<IActionResult> Create(Core.Entities.TimeTracking timeTracking)
     {
         await _timeTrackingRepository.AddTimeTracking(timeTracking);
-
+        _logger.LogInformation("Create action method of  TimeTrackingController");
         return RedirectToAction("GetAll", "TimeTracking");
     }
 
@@ -116,7 +119,7 @@ public class TimeTrackingController : Controller
             RedirectToAction("GetAll");
 
         var updatedTimeTracking = await _timeTrackingRepository.UpdateTimeTracking(timeTracking);
-
+        _logger.LogInformation("Edit action method of  TimeTrackingController");
         return RedirectToAction("GetAll");
     }
 
@@ -143,7 +146,7 @@ public class TimeTrackingController : Controller
             RedirectToAction("GetAll");
 
         await _timeTrackingRepository.DeleteTimeTracking(timeTracking.TimeTrackingId);
-
+        _logger.LogInformation("Delete action method of  TimeTrackingController");
         return RedirectToAction("GetAll");
     }
 }

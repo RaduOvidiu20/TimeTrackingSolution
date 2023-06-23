@@ -21,14 +21,4 @@ public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     public virtual DbSet<TaskType> TaskTypes { get; set; } = null!;
     public virtual DbSet<TimeTracking> TimeTracking { get; set; } = null!;
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Customer>();
-        modelBuilder.Entity<Employee>();
-        modelBuilder.Entity<ProjectName>();
-        modelBuilder.Entity<ProjectOwner>();
-        modelBuilder.Entity<TaskType>();
-        modelBuilder.Entity<TimeTracking>();
-    }
-}
+   }

@@ -10,7 +10,7 @@
         <h2 class="card-title">@ViewBag.Title</h2>
     </div>
     <div class="card-body">
-        <a asp-controller="ProjectOwner" asp-action="Create" class="btn btn-info mb-3">New owner</a>
+        <a asp-controller="ProjectOwner" asp-action="Create" class="btn btn-success mb-3">New owner</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="projectOwnerTable">
                 <thead>
@@ -27,8 +27,12 @@
                         <td hidden="hidden">@projectOwner.ProjectOwnerId</td>
                         <td>@projectOwner.Name</td>
                         <td>
-                            <a asp-controller="ProjectOwner" asp-action="Edit" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-info container">Edit</a>
-                            <a asp-controller="ProjectOwner" asp-action="Delete" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-info container">Delete</a>
+                            <a asp-controller="ProjectOwner" asp-action="Edit" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="ProjectOwner" asp-action="Delete" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 }

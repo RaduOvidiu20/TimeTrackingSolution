@@ -9,10 +9,12 @@ namespace TimeTracking.Web.Controllers;
 public class CustomerController : Controller
 {
     private readonly ICustomer _customer;
+    private readonly ILogger<CustomerController> _logger;
 
-    public CustomerController(ICustomer customer)
+    public CustomerController(ICustomer customer, ILogger<CustomerController> logger)
     {
         _customer = customer;
+        _logger = logger;
     }
 
     [Route("[action]")]
@@ -22,7 +24,7 @@ public class CustomerController : Controller
         var customers = await _customer.GetAllCustomers();
 
         ViewBag.Customers = await _customer.GetAllCustomers();
-
+       
         return View(customers);
     }
 
@@ -34,7 +36,7 @@ public class CustomerController : Controller
 
         ViewBag.Customers = customers.Select(c => new SelectListItem
             { Text = c.Name, Value = c.CustomerId.ToString() });
-
+        
         return PartialView("_Create");
     }
 
@@ -43,7 +45,7 @@ public class CustomerController : Controller
     public async Task<IActionResult> Create(Customer customer)
     {
         var newCustomer = await _customer.AddCustomer(customer);
-
+        _logger.LogInformation("Create action method of  CustomersController");
         return RedirectToAction("GetAll", "Customer");
     }
 
@@ -74,7 +76,7 @@ public class CustomerController : Controller
             RedirectToAction("GetAll");
 
         await _customer.UpdateCustomer(customer);
-        
+        _logger.LogInformation("Edit action method of  CustomersController");
         return RedirectToAction("GetAll");
     }
 
@@ -101,7 +103,7 @@ public class CustomerController : Controller
             RedirectToAction("GetAll");
 
         await _customer.DeleteCustomer(customer.CustomerId);
-
+        _logger.LogInformation("Delete action method of  CustomersController");
         return RedirectToAction("GetAll");
     }
 }
