@@ -10,6 +10,10 @@ public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
     }
 
+    public ApplicationDbContext()
+    {
+    }
+
     public virtual DbSet<Customer> Customers { get; set; } = null!;
     public virtual DbSet<Employee> Employees { get; set; } = null!;
     public virtual DbSet<ProjectName> ProjectNames { get; set; } = null!;

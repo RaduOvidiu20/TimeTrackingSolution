@@ -20,9 +20,9 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> GetAll()
     {
         var projectNames = await _projectNameRepository.GetAllProjectNames();
-        
+
         ViewBag.Projects = await _projectNameRepository.GetAllProjectNames();
-        
+
         return View(projectNames);
     }
 
@@ -31,10 +31,10 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Create()
     {
         var projectNames = await _projectNameRepository.GetAllProjectNames();
-        
+
         ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
-        
+
         return PartialView("_Create");
     }
 
@@ -43,7 +43,7 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Create(ProjectName projectName)
     {
         var newProjectName = await _projectNameRepository.AddProject(projectName);
-        
+
         return RedirectToAction("GetAll", "ProjectName");
     }
 
@@ -51,19 +51,17 @@ public class ProjectNameController : Controller
     [Route("[action]/{projectId}")]
     public async Task<IActionResult> Edit(Guid projectId)
     {
-        var projectName = await _projectNameRepository.GetProjectNameById(projectId);
-        
-        if (projectName == null) 
-            RedirectToAction("GetAll");
-
         var projectNames = await _projectNameRepository.GetAllProjectNames();
-        
+
         ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
 
-        var updatedProject = await _projectNameRepository.UpdateProject(projectName);
+        var projectName = await _projectNameRepository.GetProjectNameById(projectId);
 
-        return PartialView("_Edit", updatedProject);
+        if (projectName == null)
+            RedirectToAction("GetAll");
+
+        return PartialView("_Edit", projectName);
     }
 
     [HttpPost]
@@ -71,8 +69,8 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Edit(ProjectName project)
     {
         var newProject = await _projectNameRepository.GetProjectNameById(project.ProjectNameId);
-        
-        if (newProject == null) 
+
+        if (newProject == null)
             RedirectToAction("GetAll");
 
         var updatedProject = await _projectNameRepository.UpdateProject(project);
@@ -85,12 +83,10 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Delete(Guid projectId)
     {
         var projectName = await _projectNameRepository.GetProjectNameById(projectId);
-        
+
         if (projectName == null)
             RedirectToAction("GetAll");
 
-        await _projectNameRepository.DeleteProject(projectId);
-        
         return PartialView("_Delete", projectName);
     }
 
@@ -99,12 +95,12 @@ public class ProjectNameController : Controller
     public async Task<IActionResult> Delete(ProjectName projectName)
     {
         var newProjectName = await _projectNameRepository.GetProjectNameById(projectName.ProjectNameId);
-        
-        if (newProjectName == null) 
+
+        if (newProjectName == null)
             RedirectToAction("GetAll");
 
         await _projectNameRepository.DeleteProject(projectName.ProjectNameId);
-        
+
         return RedirectToAction("GetAll");
     }
 }

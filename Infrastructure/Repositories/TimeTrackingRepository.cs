@@ -3,6 +3,7 @@ using Core.Entities;
 using Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Infrastructure.Repositories;
 
 public class TimeTrackingRepository : ITimeTracking
@@ -14,11 +15,11 @@ public class TimeTrackingRepository : ITimeTracking
         _db = db;
     }
 
-    public async Task<TimeTracking> AddTimeTracking(TimeTracking request)
+    public async Task<TimeTracking> AddTimeTracking(TimeTracking timeTracking)
     {
-        _db.TimeTracking.Add(request);
+        _db.Add(timeTracking);
         await _db.SaveChangesAsync();
-        return request;
+        return timeTracking;
     }
 
     public async Task<bool> DeleteTimeTracking(Guid timeTrackingId)
@@ -41,20 +42,21 @@ public class TimeTrackingRepository : ITimeTracking
 
     public async Task<TimeTracking> GetTimeTrackingById(Guid timeTrackingId)
     {
-        return await _db.TimeTracking.FindAsync(timeTrackingId) ?? throw new Exception($"Record with id {timeTrackingId} could not be found.");
+        return await _db.TimeTracking.FindAsync(timeTrackingId) ??
+               throw new Exception($"Record with id {timeTrackingId} could not be found.");
     }
 
     public async Task<TimeTracking> UpdateTimeTracking(TimeTracking timeTracking)
     {
         var matchingTimeTracking =
             await _db.TimeTracking.FirstOrDefaultAsync(t => t.TimeTrackingId == timeTracking.TimeTrackingId);
-        if (matchingTimeTracking == null) 
+        if (matchingTimeTracking == null)
             return timeTracking;
-        matchingTimeTracking.Customer = timeTracking.Customer;
-        matchingTimeTracking.Employee = timeTracking.Employee;
-        matchingTimeTracking.ProjectName = timeTracking.ProjectName;
-        matchingTimeTracking.ProjectOwner = timeTracking.ProjectOwner;
-        matchingTimeTracking.TaskType = timeTracking.TaskType;
+        matchingTimeTracking.Customers = timeTracking.Customers;
+        matchingTimeTracking.Employees = timeTracking.Employees;
+        matchingTimeTracking.ProjectNames = timeTracking.ProjectNames;
+        matchingTimeTracking.ProjectOwners = timeTracking.ProjectOwners;
+        matchingTimeTracking.TaskTypes = timeTracking.TaskTypes;
         matchingTimeTracking.WorkedHours = timeTracking.WorkedHours;
         matchingTimeTracking.StartDate = timeTracking.StartDate;
         matchingTimeTracking.EndDate = timeTracking.EndDate;

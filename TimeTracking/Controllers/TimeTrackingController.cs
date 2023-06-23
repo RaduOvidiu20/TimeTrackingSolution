@@ -36,9 +36,9 @@ public class TimeTrackingController : Controller
     public async Task<IActionResult> GetAll()
     {
         var timeTracking = await _timeTrackingRepository.GetAllTimeTracking();
-        
+
         ViewBag.TimeTracking = await _timeTrackingRepository.GetAllTimeTracking();
-        
+
         return View(timeTracking);
     }
 
@@ -53,15 +53,15 @@ public class TimeTrackingController : Controller
         var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
 
         ViewBag.Customers = customers.Select(c => new SelectListItem
-            { Text = c.Name, Value = c.CustomerId.ToString() });
+            { Text = c.Name, Value = c.CustomerId.ToString() }).ToList();
         ViewBag.Employees = employees.Select(e => new SelectListItem
-            { Text = e.Name, Value = e.EmployeeId.ToString() });
+            { Text = e.Name, Value = e.EmployeeId.ToString() }).ToList();
         ViewBag.ProjectNames = projectNames.Select(pn => new SelectListItem
-            { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
+            { Text = pn.Name, Value = pn.ProjectNameId.ToString() }).ToList();
         ViewBag.ProjectOwners = projectOwners.Select(po => new SelectListItem
-            { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
+            { Text = po.Name, Value = po.ProjectOwnerId.ToString() }).ToList();
         ViewBag.TaskTypes = taskTypes.Select(t => new SelectListItem
-            { Text = t.Name, Value = t.TaskTypeId.ToString() });
+            { Text = t.Name, Value = t.TaskTypeId.ToString() }).ToList();
 
         return PartialView("_Create");
     }
@@ -70,8 +70,8 @@ public class TimeTrackingController : Controller
     [Route("[action]")]
     public async Task<IActionResult> Create(Core.Entities.TimeTracking timeTracking)
     {
-        var newTimeTracking = await _timeTrackingRepository.AddTimeTracking(timeTracking);
-        
+        await _timeTrackingRepository.AddTimeTracking(timeTracking);
+
         return RedirectToAction("GetAll", "TimeTracking");
     }
 
@@ -79,11 +79,6 @@ public class TimeTrackingController : Controller
     [Route("[action]/{timeTrackingId}")]
     public async Task<IActionResult> Edit(Guid timeTrackingId)
     {
-        var timeTracking = await _timeTrackingRepository.GetTimeTrackingById(timeTrackingId);
-        
-        if (timeTracking == null) 
-            RedirectToAction("GetAll");
-
         var customers = await _customerRepository.GetAllCustomers();
         var employees = await _employeeRepository.GetAllEmployees();
         var projectNames = await _projectNameRepository.GetAllProjectNames();
@@ -91,19 +86,23 @@ public class TimeTrackingController : Controller
         var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
 
         ViewBag.Customers = customers.Select(c => new SelectListItem
-            { Text = c.Name, Value = c.CustomerId.ToString() });
+            { Text = c.Name, Value = c.CustomerId.ToString() }).ToList();
         ViewBag.Employees = employees.Select(e => new SelectListItem
-            { Text = e.Name, Value = e.EmployeeId.ToString() });
+            { Text = e.Name, Value = e.EmployeeId.ToString() }).ToList();
         ViewBag.ProjectNames = projectNames.Select(pn => new SelectListItem
-            { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
+            { Text = pn.Name, Value = pn.ProjectNameId.ToString() }).ToList();
         ViewBag.ProjectOwners = projectOwners.Select(po => new SelectListItem
-            { Text = po.Name, Value = po.ProjectOwnerId.ToString() });
+            { Text = po.Name, Value = po.ProjectOwnerId.ToString() }).ToList();
         ViewBag.TaskTypes = taskTypes.Select(t => new SelectListItem
-            { Text = t.Name, Value = t.TaskTypeId.ToString() });
-        
-        var updatedTimeTracking = await _timeTrackingRepository.UpdateTimeTracking(timeTracking);
-        
-        return PartialView("_Edit", updatedTimeTracking);
+            { Text = t.Name, Value = t.TaskTypeId.ToString() }).ToList();
+
+        var timeTracking = await _timeTrackingRepository.GetTimeTrackingById(timeTrackingId);
+
+        if (timeTracking == null)
+            RedirectToAction("GetAll");
+
+       
+        return PartialView("_Edit", timeTracking);
     }
 
     [HttpPost]
@@ -112,12 +111,12 @@ public class TimeTrackingController : Controller
     {
         var newTimeTracking =
             await _timeTrackingRepository.GetTimeTrackingById(timeTracking.TimeTrackingId);
-        
+
         if (newTimeTracking == null)
             RedirectToAction("GetAll");
 
         var updatedTimeTracking = await _timeTrackingRepository.UpdateTimeTracking(timeTracking);
-        
+
         return RedirectToAction("GetAll");
     }
 
@@ -126,12 +125,10 @@ public class TimeTrackingController : Controller
     public async Task<IActionResult> Delete(Guid timeTrackingId)
     {
         var timeTracking = await _timeTrackingRepository.GetTimeTrackingById(timeTrackingId);
-        
-        if (timeTracking == null) 
+
+        if (timeTracking == null)
             RedirectToAction("GetAll");
 
-        await _timeTrackingRepository.DeleteTimeTracking(timeTrackingId);
-        
         return PartialView("_Delete", timeTracking);
     }
 
@@ -141,12 +138,12 @@ public class TimeTrackingController : Controller
     {
         var newTimeTracking =
             await _timeTrackingRepository.GetTimeTrackingById(timeTracking.TimeTrackingId);
-        
-        if (newTimeTracking == null) 
+
+        if (newTimeTracking == null)
             RedirectToAction("GetAll");
 
         await _timeTrackingRepository.DeleteTimeTracking(timeTracking.TimeTrackingId);
-        
+
         return RedirectToAction("GetAll");
     }
 }

@@ -20,9 +20,9 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> GetAll()
     {
         var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
-        
+
         ViewBag.Tasks = await _taskTypeRepository.GetAllTaskTypes();
-        
+
         return View(taskTypes);
     }
 
@@ -31,9 +31,9 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Create()
     {
         var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
-        
+
         ViewBag.Tasks = taskTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.TaskTypeId.ToString() });
-        
+
         return PartialView("_Create");
     }
 
@@ -42,7 +42,7 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Create(TaskType taskType)
     {
         var newTaskType = await _taskTypeRepository.AddTaskType(taskType);
-        
+
         return RedirectToAction("GetAll", "TaskType");
     }
 
@@ -50,18 +50,16 @@ public class TaskTypeController : Controller
     [Route("[action]/{taskId}")]
     public async Task<IActionResult> Edit(Guid taskId)
     {
+        var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
+
+        ViewBag.Tasks = taskTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.TaskTypeId.ToString() });
+
         var newTaskType = await _taskTypeRepository.GetTaskTypeById(taskId);
-        
+
         if (newTaskType == null)
             RedirectToAction("GetAll");
 
-        var taskTypes = await _taskTypeRepository.GetAllTaskTypes();
-        
-        ViewBag.Tasks = taskTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.TaskTypeId.ToString() });
-
-        var updatedTaskType = await _taskTypeRepository.UpdateTaskType(newTaskType);
-        
-        return PartialView("_Edit", updatedTaskType);
+        return PartialView("_Edit", newTaskType);
     }
 
     [HttpPost]
@@ -69,12 +67,12 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Edit(TaskType taskType)
     {
         var newTaskType = await _taskTypeRepository.GetTaskTypeById(taskType.TaskTypeId);
-        
-        if (newTaskType == null) 
+
+        if (newTaskType == null)
             RedirectToAction("GetAll");
 
         var updatedTaskType = await _taskTypeRepository.UpdateTaskType(taskType);
-        
+
         return RedirectToAction("GetAll");
     }
 
@@ -83,12 +81,10 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Delete(Guid taskId)
     {
         var taskType = await _taskTypeRepository.GetTaskTypeById(taskId);
-        
+
         if (taskType == null)
             RedirectToAction("GetAll");
 
-        await _taskTypeRepository.DeleteTask(taskId);
-        
         return PartialView("_Delete", taskType);
     }
 
@@ -97,12 +93,12 @@ public class TaskTypeController : Controller
     public async Task<IActionResult> Delete(TaskType taskType)
     {
         var newTaskType = await _taskTypeRepository.GetTaskTypeById(taskType.TaskTypeId);
-        
+
         if (newTaskType == null)
             RedirectToAction("GetAll");
 
         await _taskTypeRepository.DeleteTask(taskType.TaskTypeId);
-        
+
         return RedirectToAction("GetAll");
     }
 }

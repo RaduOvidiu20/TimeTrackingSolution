@@ -73,8 +73,8 @@ public class CustomerController : Controller
         if (customerModel == null)
             RedirectToAction("GetAll");
 
-        await _customer.UpdateCustomer(customer)
-            ;
+        await _customer.UpdateCustomer(customer);
+        
         return RedirectToAction("GetAll");
     }
 

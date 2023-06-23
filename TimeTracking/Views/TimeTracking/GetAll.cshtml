@@ -1,4 +1,4 @@
-﻿@model List<TimeTracking>
+﻿@model IEnumerable<TimeTracking>
 
 @{
     ViewBag.Title = "Time Tracking";
@@ -34,11 +34,11 @@
                 {
                     <tr>
                         <td hidden="hidden">@timeTracking.TimeTrackingId</td>
-                        <td>@timeTracking.Customer.Name</td>
-                        <td>@timeTracking.Employee.Name</td>
-                        <td>@timeTracking.ProjectName.Name</td>
-                        <td>@timeTracking.ProjectOwner.Name</td>
-                        <td>@timeTracking.TaskType.Name</td>
+                        <td>@timeTracking.Customer!.Name</td>
+                        <td>@timeTracking.Employee!.Name</td>
+                        <td>@timeTracking.ProjectName!.Name</td>
+                        <td>@timeTracking.ProjectOwner!.Name</td>
+                        <td>@timeTracking.TaskType!.Name</td>
                         <td>@timeTracking.WorkedHours</td>
                         <td>@timeTracking.StartDate.ToString("MM/dd/yyyy")</td>
                         <td>@timeTracking.EndDate.ToString("MM/dd/yyyy")</td>
