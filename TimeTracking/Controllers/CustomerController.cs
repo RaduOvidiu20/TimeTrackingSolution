@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize(Roles = "Admin")]
 public class CustomerController : Controller
 {
     private readonly ICustomer _customer;
@@ -24,7 +25,7 @@ public class CustomerController : Controller
         var customers = await _customer.GetAllCustomers();
 
         ViewBag.Customers = await _customer.GetAllCustomers();
-       
+
         return View(customers);
     }
 
@@ -36,7 +37,7 @@ public class CustomerController : Controller
 
         ViewBag.Customers = customers.Select(c => new SelectListItem
             { Text = c.Name, Value = c.CustomerId.ToString() });
-        
+
         return PartialView("_Create");
     }
 

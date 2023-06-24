@@ -1,16 +1,16 @@
 ﻿using Core.Contracts;
 using Core.Entities;
-using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize(Roles = "Admin")]
 public class ProjectOwnerController : Controller
 {
-    private readonly IProjectOwner _projectOwnerRepository;
     private readonly ILogger<ProjectOwnerController> _logger;
+    private readonly IProjectOwner _projectOwnerRepository;
 
     public ProjectOwnerController(IProjectOwner projectOwnerRepository, ILogger<ProjectOwnerController> logger)
     {
@@ -63,8 +63,8 @@ public class ProjectOwnerController : Controller
 
         if (projectOwner == null)
             RedirectToAction("GetAll");
-    
-        return PartialView("_Edit",projectOwner);
+
+        return PartialView("_Edit", projectOwner);
     }
 
     [HttpPost]
@@ -95,14 +95,14 @@ public class ProjectOwnerController : Controller
 
     [HttpPost]
     [Route("[action]/{ownerId}")]
-    public async Task<IActionResult> Delete(ProjectOwner ownerId)
+    public async Task<IActionResult> Delete(ProjectOwner owner)
     {
-        var newProjectName = await _projectOwnerRepository.GetProjectOwnerById(ownerId.ProjectOwnerId);
+        var newProjectName = await _projectOwnerRepository.GetProjectOwnerById(owner.ProjectOwnerId);
 
         if (newProjectName == null)
             RedirectToAction("GetAll");
 
-        await _projectOwnerRepository.DeleteProjectOwner(ownerId.ProjectOwnerId);
+        await _projectOwnerRepository.DeleteProjectOwner(owner.ProjectOwnerId);
         _logger.LogInformation("Delete action method of  ProjectOwnerController");
         return RedirectToAction("GetAll");
     }

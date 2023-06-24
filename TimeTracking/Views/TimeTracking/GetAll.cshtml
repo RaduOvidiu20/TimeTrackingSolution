@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<TimeTracking>
 
 @{
-    ViewBag.Title = "Time Tracking";
+    ViewBag.Title = "Records";
     Layout = "_Layout";
 }
 
 <div class="card mt-5">
     <div class="card-header">
-        <h2 class="card-title">@ViewBag.Title</h2>
+        <h2 class="card-title">
+            <i class="fa-solid fa-clipboard m-lg-2"></i>@ViewBag.Title
+        </h2>
     </div>
     <div class="card-body">
-        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-success mb-3">New record</a>
+        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New record</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="timeTrackingTable">
                 <thead>

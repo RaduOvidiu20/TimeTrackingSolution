@@ -10,11 +10,11 @@ public class Customer
     public Guid CustomerId { get; set; }
 
     [Required(ErrorMessage = "Name cannot be null")]
-    public string Name { get; set; }=string.Empty;
-    
+    public string Name { get; set; } = string.Empty;
+
     [EmailAddress(ErrorMessage = "Add a proper email address ")]
     public string Email { get; set; } = string.Empty;
-    
+
     [Phone(ErrorMessage = "Enter a proper phone number")]
     public int Phone { get; set; }
 

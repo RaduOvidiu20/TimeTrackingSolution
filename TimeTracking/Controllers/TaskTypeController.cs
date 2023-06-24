@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize(Roles = "Admin")]
 public class TaskTypeController : Controller
 {
-    private readonly ITaskType _taskTypeRepository;
     private readonly ILogger<TaskTypeController> _logger;
+    private readonly ITaskType _taskTypeRepository;
 
     public TaskTypeController(ITaskType taskTypeRepository, ILogger<TaskTypeController> logger)
     {

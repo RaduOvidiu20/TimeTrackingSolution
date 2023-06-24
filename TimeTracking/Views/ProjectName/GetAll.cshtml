@@ -7,10 +7,12 @@
 
 <div class="card mt-5">
     <div class="card-header">
-        <h2 class="card-title">@ViewBag.Title</h2>
+        <h2 class="card-title">
+            <i class="fa-sharp fa-solid fa-folder-open m-lg-2"></i>@ViewBag.Title
+        </h2>
     </div>
     <div class="card-body">
-        <a asp-controller="ProjectName" asp-action="Create" class="btn btn-success mb-3">New project</a>
+        <a asp-controller="ProjectName" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New project</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="projectTable">
                 <thead>

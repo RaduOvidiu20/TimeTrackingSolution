@@ -6,10 +6,12 @@
 }
 <div class="card mt-5">
     <div class="card-header">
-        <h2 class="card-title">@ViewBag.Title</h2>
+        <h2 class="card-title">
+            <i class="fa-solid fa-person m-lg-2"></i>@ViewBag.Title
+        </h2>
     </div>
     <div class="card-body">
-        <a asp-controller="Employee" asp-action="Create" class="btn btn-success mb-3">New employee</a>
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New employee</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped" id="employeeTable">
                 <thead>

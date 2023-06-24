@@ -45,14 +45,14 @@
                 <span asp-validation-for="ProjectOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  class="form-label">Task Name</label>
+                <label class="form-label">Task Name</label>
                 <select asp-for="@Model.TaskTypes" asp-items="@ViewBag.TaskTypes" class="form-control">
                     <option value="">Task...</option>
                 </select>
                 <span asp-validation-for="TaskType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  class="form-label">Worked hours</label>
+                <label class="form-label">Worked hours</label>
                 <input asp-for="@Model.WorkedHours" type="number" class="form-control"/>
                 <span asp-validation-for="WorkedHours" class="text-danger"></span>
             </div>
@@ -72,7 +72,7 @@
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  class="form-label">Status</label>
+                <label class="form-label">Status</label>
                 <input asp-for="@Model.RecordStatus" type="text" class="form-control"/>
                 <span asp-validation-for="RecordStatus" class="text-danger"></span>
             </div>

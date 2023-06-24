@@ -4,7 +4,6 @@ using Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-
 namespace Infrastructure.Repositories;
 
 public class TimeTrackingRepository : ITimeTracking
@@ -69,7 +68,8 @@ public class TimeTrackingRepository : ITimeTracking
         matchingTimeTracking.Comment = timeTracking.Comment;
         matchingTimeTracking.RecordStatus = timeTracking.RecordStatus;
         await _db.SaveChangesAsync();
-        _logger.LogDebug("UpdateTimeTracking method has been called for record with id {Id}", timeTracking.TimeTrackingId);
+        _logger.LogDebug("UpdateTimeTracking method has been called for record with id {Id}",
+            timeTracking.TimeTrackingId);
         return matchingTimeTracking;
     }
 }

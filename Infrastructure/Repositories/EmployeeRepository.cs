@@ -49,7 +49,7 @@ public class EmployeeRepository : IEmployee
     {
         var matchingEmployee =
             await _db.Employees.FirstOrDefaultAsync(t => t.EmployeeId == employee.EmployeeId);
-        if (matchingEmployee == null) 
+        if (matchingEmployee == null)
             return employee;
 
         matchingEmployee.Name = employee.Name;

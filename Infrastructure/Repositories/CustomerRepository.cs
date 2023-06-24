@@ -46,7 +46,6 @@ public class CustomerRepository : ICustomer
         _logger.LogDebug("GetCustomerById method for customer with id {Id} has been called", customerId);
         return await _db.Customers.FindAsync(customerId) ??
                throw new Exception($"Customer with id {customerId} could not be found.");
-        
     }
 
     public async Task<Customer> UpdateCustomer(Customer customer)

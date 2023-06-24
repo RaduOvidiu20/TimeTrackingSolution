@@ -1,5 +1,7 @@
+global using Microsoft.AspNetCore.Authorization;
 using Serilog;
 using TimeTracking.Web.ServiceExtensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

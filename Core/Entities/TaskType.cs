@@ -8,6 +8,7 @@ public class TaskType
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid TaskTypeId { get; set; }
+
     [Required(ErrorMessage = "Task must have a name.")]
     public string Name { get; set; } = string.Empty;
 

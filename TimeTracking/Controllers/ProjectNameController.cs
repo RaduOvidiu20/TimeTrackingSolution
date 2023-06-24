@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize(Roles = "Admin")]
 public class ProjectNameController : Controller
 {
-    private readonly IProjectName _projectNameRepository;
     private readonly ILogger<ProjectNameController> _logger;
+    private readonly IProjectName _projectNameRepository;
 
     public ProjectNameController(IProjectName projectNameRepository, ILogger<ProjectNameController> logger)
     {
@@ -36,7 +37,7 @@ public class ProjectNameController : Controller
 
         ViewBag.Projects = projectNames.Select(pn => new SelectListItem
             { Text = pn.Name, Value = pn.ProjectNameId.ToString() });
-       
+
         return PartialView("_Create");
     }
 

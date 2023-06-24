@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TimeTracking.Controllers;
+namespace TimeTracking.Web.Areas.Admin.Controllers;
 
 [Route("[controller]")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+
 
     public HomeController(ILogger<HomeController> logger)
     {

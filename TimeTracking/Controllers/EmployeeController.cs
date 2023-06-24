@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize(Roles = "Admin")]
 public class EmployeeController : Controller
 {
     private readonly IEmployee _employeeRepository;

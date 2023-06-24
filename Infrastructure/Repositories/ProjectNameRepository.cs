@@ -49,7 +49,7 @@ public class ProjectNameRepository : IProjectName
     {
         var matchingProjectName =
             await _db.ProjectNames.FirstOrDefaultAsync(t => t.ProjectNameId == projectName.ProjectNameId);
-        if (matchingProjectName == null) 
+        if (matchingProjectName == null)
             return projectName;
         matchingProjectName.Name = projectName.Name;
         await _db.SaveChangesAsync();

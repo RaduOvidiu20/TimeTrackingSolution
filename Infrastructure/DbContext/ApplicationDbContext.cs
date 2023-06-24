@@ -1,11 +1,13 @@
 ﻿using Core.Entities;
+using Core.IdentityEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContext;
 
-public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ApplicationDbContext(DbContextOptions options)
         : base(options)
     {
     }
@@ -20,5 +22,4 @@ public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     public virtual DbSet<ProjectOwner> ProjectOwners { get; set; } = null!;
     public virtual DbSet<TaskType> TaskTypes { get; set; } = null!;
     public virtual DbSet<TimeTracking> TimeTracking { get; set; } = null!;
-
-   }
+}

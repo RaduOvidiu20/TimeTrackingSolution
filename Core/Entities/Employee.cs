@@ -8,9 +8,10 @@ public class Employee
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid EmployeeId { get; set; }
-[Required(ErrorMessage = "Name cannot be null.")]
+
+    [Required(ErrorMessage = "Name cannot be null.")]
     public string Name { get; set; } = string.Empty;
-    
+
     public int Age { get; set; }
     public int Phone { get; set; }
 

@@ -5,14 +5,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
+[Authorize]
 public class TimeTrackingController : Controller
 {
     private readonly ICustomer _customerRepository;
     private readonly IEmployee _employeeRepository;
+    private readonly ILogger<TimeTrackingController> _logger;
     private readonly IProjectName _projectNameRepository;
     private readonly IProjectOwner _projectOwnerRepository;
     private readonly ITaskType _taskTypeRepository;
-    private readonly ILogger<TimeTrackingController> _logger;
     private readonly ITimeTracking _timeTrackingRepository;
 
     public TimeTrackingController(
@@ -23,7 +24,7 @@ public class TimeTrackingController : Controller
         IProjectOwner projectOwnerRepository,
         ITaskType taskTypeRepository,
         ILogger<TimeTrackingController> logger
-        )
+    )
     {
         _timeTrackingRepository = timeTrackingRepository;
         _projectNameRepository = projectNameRepository;
@@ -104,7 +105,7 @@ public class TimeTrackingController : Controller
         if (timeTracking == null)
             RedirectToAction("GetAll");
 
-       
+
         return PartialView("_Edit", timeTracking);
     }
 
