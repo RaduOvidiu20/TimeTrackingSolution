@@ -25,6 +25,7 @@ public class EmployeeController : Controller
         var employees = await _employeeRepository.GetAllEmployees();
 
         ViewBag.Employees = await _employeeRepository.GetAllEmployees();
+        
         _logger.LogInformation("GetAll action method of  EmployeeController");
         return View();
     }
@@ -37,7 +38,7 @@ public class EmployeeController : Controller
 
         ViewBag.Employees = employees.Select(e => new SelectListItem
             { Text = e.Name, Value = e.EmployeeId.ToString() });
-
+        
         return PartialView("_Create");
     }
 

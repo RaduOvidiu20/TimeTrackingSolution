@@ -1,37 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Core.Entities;
 using Core.Enums;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Core.IdentityEntities;
 
 public class RegisterDto
 {
-    [Required(ErrorMessage = "Name can't be blank")]
-    public string PersonName { get; set; }
+    [Required(ErrorMessage = "Must select a employee")]
+    [ForeignKey("EmployeeId")]
+    public Guid UserEmployee { get; set; }
+
+    
 
     [Required(ErrorMessage = "UserName can't be blank")]
-    public string UserName { get; set; }
-
-
-    [Required(ErrorMessage = "Email can't be blank")]
-    [EmailAddress(ErrorMessage = "Email should be in a proper email address format")]
-    public string Email { get; set; }
-
-
-    [Required(ErrorMessage = "Phone can't be blank")]
-    [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain numbers only")]
-    [DataType(DataType.PhoneNumber)]
-    public string Phone { get; set; }
-
+    public string? UserName { get; set; }
 
     [Required(ErrorMessage = "Password can't be blank")]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
 
     [Required(ErrorMessage = "Confirm Password can't be blank")]
     [DataType(DataType.Password)]
     [Compare("Password", ErrorMessage = "Password and confirm password do not match")]
-    public string ConfirmPassword { get; set; }
+    public string? ConfirmPassword { get; set; }
 
     public UserType UserType { get; set; } = UserType.User;
+    
 }

@@ -13,7 +13,7 @@ public class Employee
     public string Name { get; set; } = string.Empty;
 
     public int Age { get; set; }
-    public int Phone { get; set; }
+    public string Phone { get; set; }
 
     [Required(ErrorMessage = "Email cannot be null.")]
     [EmailAddress(ErrorMessage = "Chose a proper email address.")]

@@ -1,8 +1,8 @@
-﻿using Core.Enums;
+﻿using Core.Contracts;
+using Core.Enums;
 using Core.IdentityEntities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TimeTracking.Web.Areas.Admin.Controllers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TimeTracking.Web.Controllers;
 
@@ -12,20 +12,27 @@ public class AccountController : Controller
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IEmployee _employee;
 
     public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-        RoleManager<ApplicationRole> roleManager)
+        RoleManager<ApplicationRole> roleManager, IEmployee employee)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _employee = employee;
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route("[action]")]
-    public IActionResult Register()
+    public async Task<IActionResult> Register()
     {
+        var employees = await _employee.GetAllEmployees();
+
+        ViewBag.Employees = employees.Select(e => new SelectListItem
+            { Text = e.Name, Value = e.EmployeeId.ToString() }).ToList();
+
         return View();
     }
 
@@ -45,8 +52,9 @@ public class AccountController : Controller
 
         var user = new ApplicationUser
         {
-            Email = registerDto.Email, PhoneNumber = registerDto.Phone, UserName = registerDto.UserName,
-            PersonName = registerDto.PersonName
+            UserName = registerDto.UserName,
+            PersonName = registerDto.UserName,
+            Employee = registerDto.UserEmployee
         };
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -114,15 +122,18 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.UserName);
-            if (user != null)
-                if (await _userManager.IsInRoleAsync(user, UserType.Admin.ToString()))
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+            if (loginDto.UserName != null)
+            {
+                var user = await _userManager.FindByEmailAsync(loginDto.UserName);
+                if (user != null)
+                    if (await _userManager.IsInRoleAsync(user, UserType.Admin.ToString()))
+                        return RedirectToAction("Index", "Home");
+            }
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) return LocalRedirect(returnUrl);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
+       
         ModelState.AddModelError("Login", "Invalid email or password");
         return View(loginDto);
     }
@@ -134,16 +145,5 @@ public class AccountController : Controller
     {
         await _signInManager.SignOutAsync();
         return RedirectToAction(nameof(HomeController.Index), "Home");
-    }
-
-
-    [AllowAnonymous]
-    [Route("[action]")]
-    public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
-    {
-        var user = await _userManager.FindByEmailAsync(email);
-        if (user == null)
-            return Json(true); //valid
-        return Json(false); //invalid
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.IdentityEntities;
 
 namespace Core.Entities;
 
@@ -58,7 +57,7 @@ public class TimeTracking
     [Required(ErrorMessage = "Record must have a status")]
     public string RecordStatus { get; set; } = string.Empty;
 
-   
+
     public override string ToString()
     {
         return

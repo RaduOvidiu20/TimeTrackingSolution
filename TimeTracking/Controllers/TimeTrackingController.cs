@@ -1,6 +1,8 @@
 ﻿using Core.Contracts;
+using Core.IdentityEntities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace TimeTracking.Web.Controllers;
 
@@ -15,6 +17,8 @@ public class TimeTrackingController : Controller
     private readonly IProjectOwner _projectOwnerRepository;
     private readonly ITaskType _taskTypeRepository;
     private readonly ITimeTracking _timeTrackingRepository;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public TimeTrackingController(
         ITimeTracking timeTrackingRepository,
@@ -23,8 +27,7 @@ public class TimeTrackingController : Controller
         IProjectName projectNameRepository,
         IProjectOwner projectOwnerRepository,
         ITaskType taskTypeRepository,
-        ILogger<TimeTrackingController> logger
-    )
+        ILogger<TimeTrackingController> logger, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
     {
         _timeTrackingRepository = timeTrackingRepository;
         _projectNameRepository = projectNameRepository;
@@ -33,6 +36,8 @@ public class TimeTrackingController : Controller
         _customerRepository = customerRepository;
         _taskTypeRepository = taskTypeRepository;
         _logger = logger;
+        _userManager = userManager;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpGet]
@@ -40,9 +45,11 @@ public class TimeTrackingController : Controller
     public async Task<IActionResult> GetAll()
     {
         var timeTracking = await _timeTrackingRepository.GetAllTimeTracking();
-
         ViewBag.TimeTracking = await _timeTrackingRepository.GetAllTimeTracking();
+        var currentUser = await _userManager.GetUserAsync(User);
+        ViewBag.CurrentUserId = currentUser!.Employee;
         _logger.LogInformation("GetAll action method of  TimeTrackingController");
+
         return View(timeTracking);
     }
 

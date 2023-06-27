@@ -5,7 +5,7 @@
     ViewBag.Title = "Create Employee";
 
 }
-<form asp-controller="Employee" method="post" class="container w-75">
+<form method="post" class="container w-75">
     <div class="card mt-5">
         <div class="card-header">
             <h2 class="card-title">@ViewBag.Title</h2>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-success" asp-action="Create">@ViewBag.Title</button>
+            <button type="submit" class="btn btn-success" asp-controller="Employee" asp-action="Create">@ViewBag.Title</button>
         </div>
     </div>
 </form>

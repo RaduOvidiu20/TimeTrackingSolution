@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230624181658_UserNameColumn")]
-    partial class UserNameColumn
+    [Migration("20230627185225_ModifiedModel")]
+    partial class ModifiedModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,8 +64,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeId");
 
@@ -218,6 +219,12 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("Employee")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EmployeesEmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -255,6 +262,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeesEmployeeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -411,6 +420,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("ProjectOwner");
 
                     b.Navigation("TaskType");
+                });
+
+            modelBuilder.Entity("Core.IdentityEntities.ApplicationUser", b =>
+                {
+                    b.HasOne("Core.Entities.Employee", "Employees")
+                        .WithMany()
+                        .HasForeignKey("EmployeesEmployeeId");
+
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

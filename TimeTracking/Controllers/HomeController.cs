@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TimeTracking.Web.Areas.Admin.Controllers;
+namespace TimeTracking.Web.Controllers;
 
 [Route("[controller]")]
 public class HomeController : Controller

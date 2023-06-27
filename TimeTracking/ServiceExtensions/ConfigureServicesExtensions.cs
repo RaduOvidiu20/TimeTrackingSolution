@@ -3,7 +3,6 @@ using Core.IdentityEntities;
 using Infrastructure.DbContext;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

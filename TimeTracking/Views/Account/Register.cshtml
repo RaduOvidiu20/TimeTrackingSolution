@@ -5,32 +5,25 @@
     ViewBag.Title = "Register";
 }
 
-<form asp-controller="Account" method="post" class="container w-75">
+<form method="post" class="container w-75">
     <div class="card mt-5">
         <div class="card-header">
             <h2 class="card-title">@ViewBag.Title</h2>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <label asp-for="PersonName" class="form-label">Name</label>
-                <input asp-for="PersonName" type="text" class="form-control"/>
-                <span asp-validation-for="PersonName" class="text-danger"></span>
+                <label class="form-label">Employee Name</label>
+                <select asp-for="@Model.UserEmployee" asp-items="@ViewBag.Employees" class="form-control">
+                    <option value="">Employees...</option>
+                </select>
+                <span asp-validation-for="UserEmployee" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="form-label">User email</label>
-                <input asp-for="Email" type="email" class="form-control"/>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+           <div class="form-group">
                 <label asp-for="UserName" class="form-label">Username</label>
                 <input asp-for="UserName" type="text" class="form-control"/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="form-label">User phone number</label>
-                <input asp-for="Phone" type="tel" class="form-control"/>
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="Password" class="form-label">User password</label>
                 <input asp-for="Password" type="password" class="form-control"/>
@@ -52,7 +45,7 @@
 
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-success" asp-action="Register">@ViewBag.Title</button>
+            <button type="submit" class="btn btn-success" asp-controller="Account"  asp-action="Register">@ViewBag.Title</button>
         </div>
     </div>
 </form>

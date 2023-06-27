@@ -22,4 +22,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public virtual DbSet<ProjectOwner> ProjectOwners { get; set; } = null!;
     public virtual DbSet<TaskType> TaskTypes { get; set; } = null!;
     public virtual DbSet<TimeTracking> TimeTracking { get; set; } = null!;
+
+    
 }
