@@ -1,0 +1,45 @@
+﻿@model Employee;
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Delete Employee";
+
+}
+<form asp-controller="Employee" method="post" class="container w-75">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2 class="card-title">@ViewBag.Title</h2>
+            <h4 class="text-danger">Are you sure you want to delete this employee?</h4>
+            <a asp-controller="Employee" asp-action="GetAll" class="btn btn-success mt-3 mb-3">Back to customers list</a>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="form-label">Employee ID</label>
+                <input asp-for="EmployeeId" class="form-control"readonly="readonly"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Employee Name</label>
+                <input asp-for="Name" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="form-label">Employee Age</label>
+                <input asp-for="Age" type="number" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="form-label">Employee Phone Number</label>
+                <input asp-for="Phone" type="" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Employee Email</label>
+                <input asp-for="Email" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger" asp-action="Delete">@ViewBag.Title</button>
+        </div>
+    </div>
+</form>

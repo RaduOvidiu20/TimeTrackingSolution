@@ -1,0 +1,45 @@
+﻿@model List<TaskType>
+
+@{
+    ViewBag.Title = "Tasks";
+    Layout = "_Layout";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-solid fa-list-check m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="TaskType" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New task</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="taskTypeTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (TaskType taskType in ViewBag.Tasks)
+                {
+                    <tr>
+                        <td hidden="hidden">@taskType.TaskTypeId</td>
+                        <td>@taskType.Name</td>
+                        <td>
+                            <a asp-controller="TaskType" asp-action="Edit" asp-route-taskId="@taskType.TaskTypeId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="TaskType" asp-action="Delete" asp-route-taskId="@taskType.TaskTypeId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model List<ProjectName>
+
+@{
+    ViewBag.Title = "Projects";
+    Layout = "_Layout";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-sharp fa-solid fa-folder-open m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="ProjectName" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New project</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="projectTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (ProjectName projectName in ViewBag.Projects)
+                {
+                    <tr>
+                        <td hidden="hidden">@projectName.ProjectNameId</td>
+                        <td>@projectName.Name</td>
+                        <td>
+                            <a asp-controller="ProjectName" asp-action="Edit" asp-route-projectId="@projectName.ProjectNameId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="ProjectName" asp-action="Delete" asp-route-projectId="@projectName.ProjectNameId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

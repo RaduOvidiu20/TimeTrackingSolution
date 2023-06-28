@@ -1,0 +1,45 @@
+﻿@model List<ProjectOwner>
+
+@{
+    ViewBag.Title = "Project Owners";
+    Layout = "_Layout";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-solid fa-user-secret m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="ProjectOwner" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New owner</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="projectOwnerTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (ProjectOwner projectOwner in ViewBag.Owners)
+                {
+                    <tr>
+                        <td hidden="hidden">@projectOwner.ProjectOwnerId</td>
+                        <td>@projectOwner.Name</td>
+                        <td>
+                            <a asp-controller="ProjectOwner" asp-action="Edit" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="ProjectOwner" asp-action="Delete" asp-route-ownerId="@projectOwner.ProjectOwnerId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

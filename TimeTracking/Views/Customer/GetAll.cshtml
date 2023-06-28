@@ -1,0 +1,51 @@
+﻿@model List<Customer>
+
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "_Layout";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-solid fa-industry m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="Customer" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New customer</a>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="customerTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td hidden="hidden">@customer.CustomerId</td>
+                        <td>@customer.Name</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Phone</td>
+                        <td>
+                            <a asp-controller="Customer" asp-action="Edit" asp-route-customerId="@customer.CustomerId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="Customer" asp-action="Delete" asp-route-customerId="@customer.CustomerId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

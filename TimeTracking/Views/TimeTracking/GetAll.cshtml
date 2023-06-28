@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<TimeTracking>
+@{
+    ViewBag.Title = "Records";
+    Layout = "_Layout";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-solid fa-clipboard m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="TimeTracking" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New record</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="timeTrackingTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Customer</th>
+                    <th>Employee</th>
+                    <th>Project</th>
+                    <th>Project Owner</th>
+                    <th>Task</th>
+                    <th>Worked Hours</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (TimeTracking timeTracking in ViewBag.TimeTracking)
+                {
+                    if (timeTracking.Employee!.EmployeeId == ViewBag.CurrentUserId || User.IsInRole("Admin"))
+                    {
+                        <tr>
+                            <td hidden="hidden">@timeTracking.TimeTrackingId</td>
+                            <td>@timeTracking.Customer!.Name</td>
+                            <td>@timeTracking.Employee!.Name</td>
+                            <td>@timeTracking.ProjectName!.Name</td>
+                            <td>@timeTracking.ProjectOwner!.Name</td>
+                            <td>@timeTracking.TaskType!.Name</td>
+                            <td>@timeTracking.WorkedHours</td>
+                            <td>@timeTracking.StartDate.ToString("MM/dd/yyyy")</td>
+                            <td>@timeTracking.EndDate.ToString("MM/dd/yyyy")</td>
+                            <td>@timeTracking.Comment</td>
+                            <td>@timeTracking.RecordStatus</td>
+                            <td>
+                                <a asp-controller="TimeTracking" asp-action="Edit" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-warning container">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                @if (!User.IsInRole("Admin"))
+                                {
+                                    <a asp-controller="TimeTracking" asp-action="Delete" asp-route-timeTrackingId="@timeTracking.TimeTrackingId" class="text-danger container">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

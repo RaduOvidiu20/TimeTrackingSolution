@@ -1,0 +1,29 @@
+﻿@model ProjectName;
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Create Project";
+
+}
+<form asp-controller="ProjectName" method="post" class="container w-75">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2 class="card-title">@ViewBag.Title</h2>
+            <a asp-controller="ProjectName" asp-action="GetAll" class="btn btn-success mt-3 mb-3">Back to Employees list</a>
+        </div>
+        <div class="card-body">
+            <div class="form-group" hidden="hidden">
+                <label asp-for="ProjectNameId" class="form-label">Project ID</label>
+                <input asp-for="ProjectNameId" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Project Name</label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success" asp-action="Create">@ViewBag.Title</button>
+        </div>
+    </div>
+</form>

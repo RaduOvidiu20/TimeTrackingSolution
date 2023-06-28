@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Core.IdentityEntities.RegisterDto
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Register";
+}
+
+<form method="post" class="container w-75">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2 class="card-title">@ViewBag.Title</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="form-label">Employee Name</label>
+                <select asp-for="@Model.UserEmployee" asp-items="@ViewBag.Employees" class="form-control">
+                    <option value="">Employees...</option>
+                </select>
+                <span asp-validation-for="UserEmployee" class="text-danger"></span>
+            </div>
+           <div class="form-group">
+                <label asp-for="UserName" class="form-label">Username</label>
+                <input asp-for="UserName" type="text" class="form-control"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">User password</label>
+                <input asp-for="Password" type="password" class="form-control"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm password</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control"/>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-check mt-1">
+                <label asp-for="UserType" class="form-check-label">User</label>
+                <input asp-for="UserType" type="radio" class="form-check-input" value="User" checked="checked"/>
+            </div>
+            <div class="form-check">
+                <label asp-for="UserType" class="form-check-label">Admin</label>
+                <input asp-for="UserType" type="radio" class="form-check-input" value="Admin"/>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success" asp-controller="Account"  asp-action="Register">@ViewBag.Title</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,51 @@
+﻿@model List<Employee>
+
+@{
+    ViewBag.Title = "Employees";
+    Layout = "_Layout";
+}
+<div class="card mt-5">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fa-solid fa-person m-lg-2"></i>@ViewBag.Title
+        </h2>
+    </div>
+    <div class="card-body">
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-success mb-3"><i class="fa-solid fa-plus m-lg-2"></i>New employee</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="employeeTable">
+                <thead>
+                <tr>
+                    <th hidden="hidden">Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (Employee employee in ViewBag.Employees)
+                {
+                    
+                    <tr>
+                        <td hidden="hidden">@employee.EmployeeId</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Phone</td>
+                        <td>@employee.Email</td>
+                        <td>
+                            <a asp-controller="Employee" asp-action="Edit" asp-route-employeeId="@employee.EmployeeId" class="text-warning container">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="Employee" asp-action="Delete" asp-route-employeeId="@employee.EmployeeId" class="text-danger container">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
